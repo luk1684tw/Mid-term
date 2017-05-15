@@ -41,14 +41,17 @@ class Main extends React.Component {
         this.handleNavbarToggle = this.handleNavbarToggle.bind(this);
         this.handleSearchKeyPress = this.handleSearchKeyPress.bind(this);
         this.handleClearSearch = this.handleClearSearch.bind(this);
-
+        this.style = {
+            display : 'none'
+        };
         this.handleClick = this.handleClick.bind(this);
-    }
+    };
 
     render() {
         const responseGoogle = (response) => {
             console.log(response);
         }
+
         // document.querySelector('.weather-bg').style.backgroundImage = `url("images/corgi.jpg")  `;
         return (
             <Router>
@@ -76,10 +79,10 @@ class Main extends React.Component {
 
                     <Route exact path="/" render={() => (<Forecast/>)}/>
                     <Route exact path="/forecast" render={() => (<Forecast/>)}/>
-
-
-                    <img src={`images/corgi-${8+this.props.pictureNum}.png`} onClick={this.handleClick}/>
-
+                    <div className='fuck-sun-hon'>
+                        <img src={`images/cloud.png`} style={this.style} className='fuck'/>
+                        <img src={`images/corgi-${8+this.props.pictureNum}.png`} onClick={this.handleClick} className='fuck-you'/>
+                    </div>
 
                     <div className='footer'>
                         MotherFucker DataLab.
@@ -110,8 +113,18 @@ class Main extends React.Component {
     }
 
     componentWillReceiveProps(){
-      if(this.props.pictureNum == 75 )
-        clearInterval(this.interval);
+        if (this.props.pictureNum >= 15) {
+            this.style = {
+                display : 'inline-table'
+            };
+        }
+        if(this.props.pictureNum == 75 ){
+            this.style = {
+                display : 'none'
+            };
+            clearInterval(this.interval);
+        }
+
     }
 
 }
