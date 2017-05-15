@@ -20,7 +20,7 @@ import {connect} from 'react-redux';
 import SingleEvent from 'components/SingleEvent.jsx';
 import Today from 'components/Today.jsx';
 import Forecast from 'components/Forecast.jsx';
-import {setSearchText} from 'states/post-actions.js';
+import {setSearchText} from 'states/events-actions.js';
 import {toggleNavbar,Animated} from 'states/main-actions.js';
 import GoogleLogin from 'react-google-login';
 import './Main.css';
@@ -53,6 +53,7 @@ class Main extends React.Component {
         }
 
         // document.querySelector('.weather-bg').style.backgroundImage = `url("images/corgi.jpg")  `;
+        console.log('In Main: searchText = ', this.props.searchText);
         return (
             <Router>
                 <div className='main'>

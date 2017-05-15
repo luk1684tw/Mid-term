@@ -31,13 +31,12 @@ import './Forecast.css';
 
 class Forecast extends React.Component {
     static propTypes = {
-        list: PropTypes.array,
-		startEventLoading: PropTypes.bool,
+		    startEventLoading: PropTypes.bool,
         events: PropTypes.array,
-        searchText: PropTypes.string,
         showDays: PropTypes.number,
         unaccomplishedOnly: PropTypes.bool,
-		dispatch: PropTypes.func
+        searchText: PropTypes.string,
+		      dispatch: PropTypes.func
     };
 
     constructor(props) {
@@ -53,21 +52,20 @@ class Forecast extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
+        console.log('nextProps.searchText = ',nextProps.searchText, ' this.props.searchText = ', this.props.searchText);
         if (nextProps.searchText !== this.props.searchText) {
-            this.props.dispatch(listEvents(this.props.searchText, false, this.props.showDays));
+            this.props.dispatch(listEvents(nextProps.searchText, false, this.props.showDays));
         }
     }
 
     render() {
         const {
-            list,
             startEventLoading,
             events,
-			unaccomplishedOnly
+			      unaccomplishedOnly,
+            searchText
         } = this.props;
-        const tomorrow = list[0];
-        const rests = list.slice(1);
-
+        console.log('In Render: searchText= ',searchText);
         document.body.className = `weather-bg`;
         document.querySelector('.weather-bg').style.backgroundImage = `url("images/corgi.jpg")  `;
 				console.log('EVENTS in forecast',events);
@@ -125,6 +123,5 @@ export default connect(state => ({
     ...state.forecast,
     ...state.events,
     ...state.todoForm,
-    unit: state.unit,
     searchText: state.searchText
 }))(Forecast);

@@ -36,7 +36,7 @@ function listEvents(searchText = '', unaccomplishedOnly = false, days = 0) {
             }
             if (searchText) {
                 events = events.filter(e => {
-                    return e.text.toLowerCase().indexOf(searchText.toLowerCase()) !== -1;
+                    return ((e.description.toLowerCase().indexOf(searchText.toLowerCase()) !== -1) || (e.title.toLowerCase().indexOf(searchText.toLowerCase()) !== -1));
                 });
             }
             resolve(events);

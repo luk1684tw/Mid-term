@@ -1,3 +1,11 @@
+export function searchText(state = '', action) {
+    switch (action.type) {
+        case '@SEARCH_TEXT_XD/SET_SEARCH_TEXT':
+            return action.searchText;
+        default:
+            return state;
+    }
+}
 const initEventState = {
   startEventLoading: false,
   events: [],
