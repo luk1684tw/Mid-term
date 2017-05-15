@@ -5,7 +5,7 @@ import {
 } from 'api/events.js';
 export function setSearchText(searchText) {
     return {
-        type: '@SEARCH_TEXT/SET_SEARCH_TEXT',
+        type: '@SEARCH_TEXT_XD/SET_SEARCH_TEXT',
         searchText
     };
 }

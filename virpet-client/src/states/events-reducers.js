@@ -1,9 +1,6 @@
-const initSearchText={
-  searchText: ''
-}
-export function searchText(state = initSearchText, action) {
+export function searchText(state = '', action) {
     switch (action.type) {
-        case '@SEARCH_TEXT/SET_SEARCH_TEXT':
+        case '@SEARCH_TEXT_XD/SET_SEARCH_TEXT':
             return action.searchText;
         default:
             return state;
