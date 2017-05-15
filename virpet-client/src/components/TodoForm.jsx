@@ -16,6 +16,7 @@ import './PostForm.css';
 
 class TodoForm extends React.Component {
     static propTypes = {
+        searchText: PropTypes.string,
         formToggle: PropTypes.bool,
         tempToggle: PropTypes.bool,
         showDays: PropTypes.number,
@@ -63,6 +64,7 @@ class TodoForm extends React.Component {
     handleDropdownSelect(showDays) {
         console.log(showDays);
         this.props.dispatch(selectShowDays(showDays));
+        this.props.dispatch(listEvents(this.props.searchText, false, showDays));
     }
 
     handleFormToggle() {
@@ -80,5 +82,6 @@ class TodoForm extends React.Component {
 }
 
 export default connect(state => ({
-    ...state.eventsForm
+    ...state.eventsForm,
+    searchText: state.searchText
 }))(TodoForm);

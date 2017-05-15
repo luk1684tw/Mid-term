@@ -7,10 +7,10 @@ import {Provider} from 'react-redux';
 
 import Main from 'components/Main.jsx';
 import {unit, weather, weatherForm, forecast} from 'states/weather-reducers.js';
-import {searchText, post, postForm, postItem} from 'states/post-reducers.js';
+import {post, postForm, postItem} from 'states/post-reducers.js';
 import {todoForm, todo} from 'states/todo-reducers.js';
 import {main} from 'states/main-reducers.js';
-import {eventForm, events, eventsForm} from 'states/events-reducers.js';
+import {eventForm, events, eventsForm, searchText} from 'states/events-reducers.js';
 import 'bootstrap/dist/css/bootstrap.css';
 
 window.onload = function() {

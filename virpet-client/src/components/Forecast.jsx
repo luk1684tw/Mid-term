@@ -25,14 +25,14 @@ import WeatherTable from 'components/WeatherTable.jsx';
 import WeatherForm from 'components/WeatherForm.jsx';
 import TodoForm from 'components/TodoForm.jsx';
 import TodoList from 'components/TodoList.jsx';
-import {listEvents, toggleAndList} from 'states/events-actions.js';
+import {listEvents, toggleAndList, searchText} from 'states/events-actions.js';
 import Days from 'components/Days.jsx'
 import './Forecast.css';
 
 class Forecast extends React.Component {
     static propTypes = {
         list: PropTypes.array,
-		startEventLoading: PropTypes.bool,
+		    startEventLoading: PropTypes.bool,
         events: PropTypes.array,
         searchText: PropTypes.string,
         showDays: PropTypes.number,
@@ -53,7 +53,9 @@ class Forecast extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
+        console.log('In Recieve Props: ', nextProps);
         if (nextProps.searchText !== this.props.searchText) {
+          console.log('In Recieve Props ', this.props.searchText);
             this.props.dispatch(listEvents(this.props.searchText, false, this.props.showDays));
         }
     }
@@ -125,6 +127,5 @@ export default connect(state => ({
     ...state.forecast,
     ...state.events,
     ...state.todoForm,
-    unit: state.unit,
-    searchText: state.searchText
+    ...state.searchText
 }))(Forecast);

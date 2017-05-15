@@ -3,7 +3,12 @@ import {
     listEvents as listEventsFromApi,
     accomplishEvent as accomplishEventFromApi
 } from 'api/events.js';
-
+export function setSearchText(searchText) {
+    return {
+        type: '@SEARCH_TEXT/SET_SEARCH_TEXT',
+        searchText
+    };
+}
 export function eventTitle(eventTitleValue) {
     return {
         type: '@EVENTS/EVENT_TITLE',

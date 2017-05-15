@@ -1,3 +1,14 @@
+const initSearchText={
+  searchText: ''
+}
+export function searchText(state = initSearchText, action) {
+    switch (action.type) {
+        case '@SEARCH_TEXT/SET_SEARCH_TEXT':
+            return action.searchText;
+        default:
+            return state;
+    }
+}
 const initEventState = {
   startEventLoading: false,
   events: [],
