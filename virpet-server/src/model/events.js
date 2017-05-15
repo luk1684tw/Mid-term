@@ -16,14 +16,15 @@ function listEvents(searchText = '', unaccomplishedOnly = false, days = 0) {
             let events = data ? JSON.parse(data) : [];
 
             if (unaccomplishedOnly) {
-                events.filter(e => {
+                events = events.filter(e => {
                     return !e.doneTs;
                 });
             }
             if (days) {
-                events.filter(e => {
+                events = events.filter(e => {
                     const time = Math.round((moment(e.startDate,'YYYY-MM-DD').unix() - moment().unix())/86400);
-                    if (time <= days && time >= 0) {
+                    console.log('Time = ', time);
+                    if ((time <= days) && (time >= -1)) {
                         console.log('In assigned range!');
                         return true;
                     }else {
@@ -34,7 +35,7 @@ function listEvents(searchText = '', unaccomplishedOnly = false, days = 0) {
                 });
             }
             if (searchText) {
-                events.filter(e => {
+                events = events.filter(e => {
                     return e.text.toLowerCase().indexOf(searchText.toLowerCase()) !== -1;
                 });
             }
