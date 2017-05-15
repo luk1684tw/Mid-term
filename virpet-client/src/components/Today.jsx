@@ -57,18 +57,7 @@ class Today extends React.Component {
 
         return (
             <div className='today'>
-                <div className='weather'>
-                    <WeatherForm city={city} defaultUnit={unit} submitAction={getWeather} />
-                    <WeatherDisplay {...{group, description, temp, unit, masking}} day='today'/>
-                </div>
-                <div className='posts'>
-                    <h4 className='label'><i className='fa fa-paper-plane' aria-hidden="true"></i>&nbsp;&nbsp;Posts</h4>
-                    <PostForm />
-                    <PostList posts={posts} />{
-                        postLoading &&
-                        <Alert color='warning' className='loading'>Loading...</Alert>
-                    }
-                </div>
+                
             </div>
         );
     }

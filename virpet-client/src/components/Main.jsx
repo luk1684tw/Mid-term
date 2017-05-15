@@ -49,6 +49,7 @@ class Main extends React.Component {
         const responseGoogle = (response) => {
             console.log(response);
         }
+        // document.querySelector('.weather-bg').style.backgroundImage = `url("images/corgi.jpg")  `;
         return (
             <Router>
                 <div className='main'>
@@ -58,11 +59,7 @@ class Main extends React.Component {
                                 <NavbarToggler right onClick={this.handleNavbarToggle}/>
                                 <NavbarBrand className='' href="/">Virpet</NavbarBrand>&nbsp;&nbsp;
                                 <Collapse isOpen={this.props.navbarToggle} navbar>
-                                    <Nav navbar>
-                                        <NavItem>
-                                            <NavLink tag={Link} to='/forecast'>提醒條</NavLink>
-                                        </NavItem>
-                                    </Nav>
+
                                     <SingleEvent/>
                                     &nbsp;&nbsp;
                                     <div>
@@ -77,7 +74,7 @@ class Main extends React.Component {
                         </div>
                     </div>
 
-                    <Route exact path="/" render={() => (<Today/>)}/>
+                    <Route exact path="/" render={() => (<Forecast/>)}/>
                     <Route exact path="/forecast" render={() => (<Forecast/>)}/>
 
 
@@ -85,7 +82,7 @@ class Main extends React.Component {
 
 
                     <div className='footer'>
-                        DataLab.
+                        MotherFucker DataLab.
                     </div>
                 </div>
             </Router>
