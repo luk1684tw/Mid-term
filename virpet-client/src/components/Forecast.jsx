@@ -32,12 +32,12 @@ import './Forecast.css';
 class Forecast extends React.Component {
     static propTypes = {
         list: PropTypes.array,
-				startEventLoading: PropTypes.bool,
+		startEventLoading: PropTypes.bool,
         events: PropTypes.array,
         searchText: PropTypes.string,
         showDays: PropTypes.number,
         unaccomplishedOnly: PropTypes.bool,
-				dispatch: PropTypes.func
+		dispatch: PropTypes.func
     };
 
     constructor(props) {
@@ -63,7 +63,7 @@ class Forecast extends React.Component {
             list,
             startEventLoading,
             events,
-						unaccomplishedOnly
+			unaccomplishedOnly
         } = this.props;
         const tomorrow = list[0];
         const rests = list.slice(1);
@@ -73,7 +73,7 @@ class Forecast extends React.Component {
 				console.log('EVENTS in forecast',events);
         return (
             <div className='forecast'>
-                <container className='display-5'>
+                {/*<container className='display-5'>
                     <div className="cards">
                         <Row>
                             <Col>
@@ -100,7 +100,7 @@ class Forecast extends React.Component {
                             </Col>
                         </Row>
                     </div>
-                </container>
+                </container>*/}
                 <div className='todos'>
                     <div className='label d-flex justify-content-between align-items-end'>
                         <h4>
