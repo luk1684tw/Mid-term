@@ -102,8 +102,8 @@ class Forecast extends React.Component {
                 <div className='todos'>
                     <div className='label d-flex justify-content-between align-items-end'>
                         <h4>
-                            <i className='fa fa-tags' aria-hidden="true"></i>&nbsp;&nbsp;Todos</h4>
-                        <div><Input type="checkbox" checked={this.props.unaccomplishedOnly} onClick={this.toggleUnaccomplishedOnly}/>&nbsp;<Label className='accomplished-only' onClick={this.toggleUnaccomplishedOnly}>Unaccomplished</Label>
+                            <i className='fa fa-tags' aria-hidden="true"></i>&nbsp;&nbsp;記事本</h4>
+                        <div><Input type="checkbox" checked={this.props.unaccomplishedOnly} onClick={this.toggleUnaccomplishedOnly}/>&nbsp;<Label className='accomplished-only' onClick={this.toggleUnaccomplishedOnly}>未完成事項</Label>
                         </div>
                     </div>
                     <TodoForm/>

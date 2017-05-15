@@ -42,16 +42,16 @@ class TodoForm extends React.Component {
                               {/*<i className={getMoodIcon(mood)}></i>&nbsp;
                                    mood === 'na' ? 'Mood' : mood
                               */}
-                              {this.props.showDays} Days
+                              顯示{' '}{this.props.showDays}天
                           </DropdownToggle>
                           <DropdownMenu>
-                              <DropdownItem type='button' onClick={() => this.handleDropdownSelect(5)}>&nbsp;&nbsp;5 Days</DropdownItem>
-                              <DropdownItem type='button' onClick={() => this.handleDropdownSelect(7)}>&nbsp;&nbsp;7 Days</DropdownItem>
-                              <DropdownItem type='button' onClick={() => this.handleDropdownSelect(10)}>&nbsp;&nbsp;10 Days</DropdownItem>
-                              <DropdownItem type='button' onClick={() => this.handleDropdownSelect(15)}>&nbsp;&nbsp;15 Days</DropdownItem>
-                              <DropdownItem type='button' onClick={() => this.handleDropdownSelect(20)}>&nbsp;&nbsp;20 Days</DropdownItem>
-                              <DropdownItem type='button' onClick={() => this.handleDropdownSelect(25)}>&nbsp;&nbsp;25 Days</DropdownItem>
-                              <DropdownItem type='button' onClick={() => this.handleDropdownSelect(30)}>&nbsp;&nbsp;30 Days</DropdownItem>
+                              <DropdownItem type='button' onClick={() => this.handleDropdownSelect(5)}>&nbsp;&nbsp;5 天</DropdownItem>
+                              <DropdownItem type='button' onClick={() => this.handleDropdownSelect(7)}>&nbsp;&nbsp;7 天</DropdownItem>
+                              <DropdownItem type='button' onClick={() => this.handleDropdownSelect(10)}>&nbsp;&nbsp;10 天</DropdownItem>
+                              <DropdownItem type='button' onClick={() => this.handleDropdownSelect(15)}>&nbsp;&nbsp;15 天</DropdownItem>
+                              <DropdownItem type='button' onClick={() => this.handleDropdownSelect(20)}>&nbsp;&nbsp;20 天</DropdownItem>
+                              <DropdownItem type='button' onClick={() => this.handleDropdownSelect(25)}>&nbsp;&nbsp;25 天</DropdownItem>
+                              <DropdownItem type='button' onClick={() => this.handleDropdownSelect(30)}>&nbsp;&nbsp;30 天</DropdownItem>
                           </DropdownMenu>
                       </ButtonDropdown>
               :

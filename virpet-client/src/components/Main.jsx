@@ -86,7 +86,7 @@ class Main extends React.Component {
                     </div>
 
                     <div className='footer'>
-                        NTHU-VirPet.
+                        NTHU專業工具人開發團隊
                     </div>
                 </div>
             </Router>
