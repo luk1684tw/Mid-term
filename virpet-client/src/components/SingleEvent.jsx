@@ -85,23 +85,19 @@ class SingleEvent extends React.Component{
         this.props.dispatch(changeModal());
     }
     handleEvents(){
-        if (this.props.eventTitle === '') {
-            console.log('123');
+        if (this.props.eventTitleValue === '') {
             this.props.dispatch(eventDanger(true));
             return;
         }
-        if (this.props.eventDescript==='') {
-            console.log('456');
+        if (this.props.eventDescriptValue==='') {
             this.props.dispatch(eventDanger(true));
             return;
         }
         if (!this.props.eventStartDate) {
-           console.log('1234245346');
             this.props.dispatch(eventDanger(true));
             return;
         }
         if (!this.props.eventEndDate) {
-           console.log('1234546');
             this.props.dispatch(eventDanger(true));
             return;
         }
@@ -114,7 +110,6 @@ class SingleEvent extends React.Component{
     }
     handleEventTitleChange(e) {
         const text = e.target.value;
-		// console.log(typeof(e.target.value));
         console.log('e.target.value = ' + e.target.value);
         this.props.dispatch(eventTitle(text));
         if (text && this.props.eventDanger) {
