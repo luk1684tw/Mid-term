@@ -23,7 +23,7 @@ class TodoList extends React.Component {
         console.log('EVENTS in todolist',events);
         let children = (
             <ListGroupItem className='empty d-flex justify-content-center align-items-center'>
-                <div className='empty-text'>All events are accomplished.<br />Take a break and relax!</div>
+                <div className='empty-text'>所有事情都完成了OuO<br />好好享受睡覺的時光!!</div>
             </ListGroupItem>
         );
         if (events.length) {

@@ -86,7 +86,7 @@ class Main extends React.Component {
                     </div>
 
                     <div className='footer'>
-                        MotherFucker DataLab.
+                        NTHU專業工具人開發團隊
                     </div>
                 </div>
             </Router>
@@ -110,6 +110,7 @@ class Main extends React.Component {
     }
 
     handleClick(){
+        clearInterval(this.interval);
         this.interval = setInterval(()=>{this.props.dispatch(Animated())}, 60);
     }
 
