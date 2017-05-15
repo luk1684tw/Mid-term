@@ -80,13 +80,13 @@ class Main extends React.Component {
 
                     <Route exact path="/" render={() => (<Forecast/>)}/>
                     <Route exact path="/forecast" render={() => (<Forecast/>)}/>
-                    <div className='fuck-sun-hon'>
-                        <img src={`images/cloud.png`} style={this.style} className='fuck'/>
-                        <img src={`images/corgi-${8+this.props.pictureNum}.png`} onClick={this.handleClick} className='fuck-you'/>
+                    <div className='animate'>
+                        <img src={`images/cloud.png`} style={this.style} className='talk'/>
+                        <img src={`images/corgi-${8+this.props.pictureNum}.png`} onClick={this.handleClick} className='corgi'/>
                     </div>
 
                     <div className='footer'>
-                        MotherFucker DataLab.
+                        NTHU-VirPet.
                     </div>
                 </div>
             </Router>
@@ -110,6 +110,7 @@ class Main extends React.Component {
     }
 
     handleClick(){
+        clearInterval(this.interval);
         this.interval = setInterval(()=>{this.props.dispatch(Animated())}, 60);
     }
 

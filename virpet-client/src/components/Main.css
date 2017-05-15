@@ -32,11 +32,10 @@
         width: 10rem;
     }
 }
-/*.fuck-son-hon {
+.animate {
     position: relative;
-    left
 }
-.fuck {
+.talk {
     top: 10px;
     left: 10px;
     width: 200px;
@@ -44,11 +43,11 @@
     position: absolute;
     z-index: 1;
 }
-.fuck-you {
+.corgi {
     position: absolute;
     z-index: 2;
     top: 30px;
     left: 50px;
     width: 300px;
     height: 300px;
-}*/
+}

@@ -98,6 +98,38 @@ function accomplishEvent(id) {
         });
     });
 }
+
+function createAccount(account,key) {
+    return new Promise((resolve,reject) => {
+        if (!fs.existsSync('data-accounts.json')) {
+            fs.writeFileSync('data-accounts.json', '');
+        }
+
+
+        fs.readFile('data-accounts.json', 'utf8', (err, data) => {
+            if (err) {
+                console.log('read account failed');
+                reject(err);
+            }
+
+            let accounts = data ? :JSON.parse(data) : [] ;
+            let accountfound = false;
+            if (data) {
+                accounts.map((item) => {
+                    //todo : check if account exist and set accountfound to true
+                })
+                if (!accountfound){
+                    //todo : create an account and write into data-accounts
+                }
+            }else {
+                //todo : create an account and write into data-accounts
+            }
+
+
+    })
+}
+
+
 module.exports = {
     listEvents,
     createEvent,
