@@ -19,6 +19,7 @@ import {listEvents, createUser, changeLoginModal, account, password, loginDanger
 import moment from 'moment';
 class Login extends React.Component{
     static propTypes = {
+      user: PropTypes.string,
       loginModal: PropTypes.bool,
       password: PropTypes.string,
       user: PropTypes.string,
