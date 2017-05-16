@@ -24,6 +24,7 @@ import {toggleNavbar,Animated} from 'states/main-actions.js';
 import Login from 'components/Login.jsx';
 import Logout from 'components/Logout.jsx';
 import GoogleLogin from 'react-google-login';
+import {createUser, changeLoginModal, account, password, loginDanger} from 'states/events-actions.js';
 import './Main.css';
 
 
@@ -44,6 +45,7 @@ class Main extends React.Component {
         this.handleNavbarToggle = this.handleNavbarToggle.bind(this);
         this.handleSearchKeyPress = this.handleSearchKeyPress.bind(this);
         this.handleClearSearch = this.handleClearSearch.bind(this);
+        this.handleGooglelogin = this.handleGooglelogin.bind(this);
         this.style = 'hide';
         this.handleCorgiClick = this.handleCorgiClick.bind(this);
     };
@@ -76,7 +78,7 @@ class Main extends React.Component {
                                     {(this.props.user !== '')?<Logout/>:' '}
                                     &nbsp;&nbsp;
                                     <div>
-                                        <GoogleLogin clientId="658977310896-knrl3gka66fldh83dao2rhgbblmd4un9.apps.googleusercontent.com" buttonText="GoogleLogin" onSuccess={responseGoogle} onFailure={responseGoogle} className='btn btn-primary' offline={false}></GoogleLogin>
+                                        <GoogleLogin clientId="658977310896-knrl3gka66fldh83dao2rhgbblmd4un9.apps.googleusercontent.com" buttonText="GoogleLogin" onSuccess={this.handleGooglelogin} onFailure={this.handleGooglelogin} className='btn btn-primary' offline={false}></GoogleLogin>
                                     </div>
                                     <div className='search ml-auto'>
                                         <Input className='ml-auto' type='text' placeholder='Search' onKeyPress={this.handleSearchKeyPress} getRef={e => this.searchEl = e}></Input>
@@ -115,6 +117,11 @@ class Main extends React.Component {
         if (keyCode === 13) {
             this.props.dispatch(setSearchText(e.target.value));
         }
+    }
+
+    handleGooglelogin(response) {
+        console.log('response :' , response.profileObj.email);
+        this.props.dispatch(createUser(response.profileObj.email,'googleUser'));
     }
 
     handleClearSearch() {
