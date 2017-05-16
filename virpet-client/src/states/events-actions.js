@@ -1,7 +1,8 @@
 import {
     createEvent as createEventFromApi,
     listEvents as listEventsFromApi,
-    accomplishEvent as accomplishEventFromApi
+    accomplishEvent as accomplishEventFromApi,
+    createUser as createUserFromApi
 } from 'api/events.js';
 export function setSearchText(searchText) {
     return {
@@ -132,5 +133,61 @@ export function selectShowDays(showDays) {
     return {
         type: '@EVENTSFORM/SELECT_SHOW_DAYS',
         showDays
+    };
+};
+//----------------------------
+//----------------------------
+export function account(account) {
+     return {
+         type: '@LOGIN/ACCOUNT',
+         account
+     };
+};
+export function password(password){
+     return {
+        type: '@LOGIN/PASSWORD',
+        password
+     };
+};
+export function changeLoginModal(){
+     return {
+        type: '@LOGIN/CHANGE_LOGIN_MODAL'
+     };
+};
+export function loginDanger(loginDanger){
+    return {
+        type: '@LOGIN/LOGIN_DANGER',
+        loginDanger
+    };
+};
+//--------------------------------
+//--------------------------------
+function startUserLoading(){
+    return {
+         type: '@LOGIN/START_USER_LOADING'
+    };
+};
+function endUserLoading(){
+    return{
+        type: '@EVENTS/END_EVENT_LOADING'
+    };
+}
+function endGetUser(user){
+    return{
+        type: '@EVENTS/END_GET_USER',
+        user
+    }
+}
+export function createUser(account, password) {
+    return (dispatch, getState) => {
+        dispatch(startUserLoading());
+
+        return createUserFromApi(account, password).then(user => {
+            dispatch(endGetUser(user));
+            dispatch(endUserLoading());
+        }).catch(err => {
+            console.error('Error creating post', err);
+            dispatch(endUserLoading());
+        });
     };
 };

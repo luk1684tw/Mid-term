@@ -108,3 +108,35 @@ export function eventsForm(state = initEventsFormState, action) {
             return state;
     }
 }
+const initLoginFormState = {
+    loginModal: false,
+    account: '',
+    password: '',
+    loginDanger: false
+};
+export function loginForm(state = initLoginFormState, action) {
+    switch (action.type) {
+        case '@LOGIN/ACCOUNT':
+            return {
+                ...state,
+                account: action.account
+            };
+        case '@LOGIN/PASSWORD':
+            return {
+                ...state,
+                password: action.password
+            };
+        case '@LOGIN/CHANGE_LOGIN_MODAL':
+            return{
+                 ...state,
+                 loginModal: !state.loginModal
+            };
+        case '@LOGIN/LOGIN_DANGER':
+            return {
+                ...state,
+                loginDanger: action.loginDanger
+            };
+        default:
+            return state;
+    }
+}
