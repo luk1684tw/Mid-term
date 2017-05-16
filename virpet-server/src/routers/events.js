@@ -58,8 +58,9 @@ router.post('/events/:account/:key',function(req,res,next) {
 		err.status = 400;
 		throw err;
 	}
-	eventModel.createAccount(account, key).then(() => {
+	eventModel.createAccount(account, key).then((status) => {
 		console.log('createAccount succeed!');
+		res.json(status);
 	}).catch(next);
 })
 module.exports = router;
