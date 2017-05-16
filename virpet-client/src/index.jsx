@@ -8,14 +8,14 @@ import {Provider} from 'react-redux';
 import Main from 'components/Main.jsx';
 import {todoForm, todo} from 'states/todo-reducers.js';
 import {main} from 'states/main-reducers.js';
-import {eventForm, events, eventsForm, searchText, loginForm, user} from 'states/events-reducers.js';
+import {eventForm, events, eventsForm, searchText, loginForm, user, logoutForm} from 'states/events-reducers.js';
 import 'bootstrap/dist/css/bootstrap.css';
 
 window.onload = function() {
     const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
     const store = createStore(combineReducers({
         todoForm, todo,
-        main, eventForm, events, eventsForm, searchText, loginForm, user
+        main, eventForm, events, eventsForm, searchText, loginForm, user, logoutForm
     }), composeEnhancers(applyMiddleware(thunkMiddleware/*, loggerMiddleware*/)));
 
     ReactDOM.render(

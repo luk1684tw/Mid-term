@@ -169,15 +169,16 @@ function startUserLoading(){
 };
 function endUserLoading(){
     return{
-        type: '@EVENTS/END_EVENT_LOADING'
+        type: '@LOGIN/END_EVENT_LOADING'
     };
 }
 function endGetUser(user){
+    console.log('In endGetUser', user);
     return{
-        type: '@EVENTS/END_GET_USER',
+        type: '@LOGIN/END_GET_USER',
         user
-    }
-}
+    };
+};
 export function createUser(account, password) {
     return (dispatch, getState) => {
         dispatch(startUserLoading());
@@ -188,5 +189,17 @@ export function createUser(account, password) {
             console.error('Error creating post', err);
             dispatch(endUserLoading());
         });
+    };
+};
+export function clearUser(){
+    return{
+       type: '@LOGIN/CLEAR_USER'
+    };
+}
+//--------------------------
+//--------------------------
+export function changeLogoutModal(){
+    return{
+        type: '@LOGOUT/CHANGE_LOGOUT_MODAL'
     };
 };
