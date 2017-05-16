@@ -3,7 +3,7 @@ import axios from 'axios';
 // Develop server URL
 const eventBaseUrl = 'http://localhost:8080/api';
 
-export function listEvents(unaccomplishedOnly, searchText, showDays) {
+export function listEvents(unaccomplishedOnly, searchText, showDays, accountName) {
 
     let url = `${eventBaseUrl}/events`;
     if (searchText)
@@ -13,9 +13,9 @@ export function listEvents(unaccomplishedOnly, searchText, showDays) {
     if (unaccomplishedOnly && searchText)
         url = `${eventBaseUrl}/events?accomplishTodo=${unaccomplishedOnly}&searchText=${searchText}`;
     if (!unaccomplishedOnly && !searchText)
-    	url += `?showDays=${showDays}`;
+    	url += `?showDays=${showDays}&accountName=${accountName}`;
     else
-        url += `&showDays=${showDays}`;
+        url += `&showDays=${showDays}&accountName=${accountName}`;
 
     console.log(url);
     return axios.get(url).then(function(res) {
@@ -26,14 +26,14 @@ export function listEvents(unaccomplishedOnly, searchText, showDays) {
         return res.data;
     });
 }
-export function createEvent(eventTitle, eventStartDate, eventEndDate, eventDescript) {
+export function createEvent(eventTitle, eventStartDate, eventEndDate, eventDescript,accountName) {
     let url = `${eventBaseUrl}/events`;
-
     return axios.post(url, {
         eventTitle,
         eventStartDate,
         eventEndDate,
-        eventDescript
+        eventDescript,
+        accountName
     }).then(function(res) {
         console.log('client recieved:');
         console.log(res.data);

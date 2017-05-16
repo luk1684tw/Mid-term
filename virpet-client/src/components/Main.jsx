@@ -72,9 +72,10 @@ class Main extends React.Component {
                                     {(this.props.user!=='')?this.props.user:<Login/>}
                                     {this.props.user}
                                     <Logout/>
-                                    {/* <div>
+                                    <Login/>
+                                    <div>
                                         <GoogleLogin clientId="658977310896-knrl3gka66fldh83dao2rhgbblmd4un9.apps.googleusercontent.com" buttonText="Login with Google" onSuccess={responseGoogle} onFailure={responseGoogle} className='btn btn-secondary' offline={false}></GoogleLogin>
-                                    </div> */}
+                                    </div>
                                     <div className='search ml-auto'>
                                         <Input className='ml-auto' type='text' placeholder='Search' onKeyPress={this.handleSearchKeyPress} getRef={e => this.searchEl = e}></Input>{this.props.searchText && <i className='navbar-text fa fa-times' onClick={this.handleClearSearch}></i>
 }
