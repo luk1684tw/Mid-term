@@ -104,29 +104,37 @@ function createAccount(account,key) {
         if (!fs.existsSync('data-accounts.json')) {
             fs.writeFileSync('data-accounts.json', '');
         }
-
-
         fs.readFile('data-accounts.json', 'utf8', (err, data) => {
             if (err) {
                 console.log('read account failed');
                 reject(err);
             }
-
-            let accounts = data ? :JSON.parse(data) : [] ;
             let accountfound = false;
+            let accounts = data ? JSON.parse(data) : [] ;
             if (data) {
-                accounts.map((item) => {
+                accounts =  accounts.filter((item) => {
                     //todo : check if account exist and set accountfound to true
+                    if (item.account === account) {
+                        accountfound = true;
+                        console.log('account found');
+                        return true;
+                    }else {
+                        console.log('account not found');
+                        return false
+                    }
                 })
                 if (!accountfound){
                     //todo : create an account and write into data-accounts
+                    const newAccount = {
+                        
+                    }
                 }
-            }else {
+            } else {
                 //todo : create an account and write into data-accounts
             }
 
-
-    })
+        });
+    });
 }
 
 
