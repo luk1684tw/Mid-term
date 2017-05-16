@@ -41,9 +41,7 @@ class Main extends React.Component {
         this.handleNavbarToggle = this.handleNavbarToggle.bind(this);
         this.handleSearchKeyPress = this.handleSearchKeyPress.bind(this);
         this.handleClearSearch = this.handleClearSearch.bind(this);
-        this.style = {
-            display : 'none'
-        };
+        this.style = 'hide';
         this.handleClick = this.handleClick.bind(this);
     };
 
@@ -51,7 +49,9 @@ class Main extends React.Component {
         const responseGoogle = (response) => {
             console.log(response);
         }
-
+        const date = (new Date().getDay())%7;
+        const weekday = (date === 0)? 'Sun' : (date === 1) ? 'Mon' : (date === 2) ? 'Tue'
+        : (date === 3) ? 'Wen' : (date === 4) ? 'Thu' : (date === 5) ? 'Fri' : 'Sat';
         // document.querySelector('.weather-bg').style.backgroundImage = `url("images/corgi.jpg")  `;
         console.log('In Main: searchText = ', this.props.searchText);
         return (
@@ -81,10 +81,14 @@ class Main extends React.Component {
 
                     <Route exact path="/" render={() => (<Forecast/>)}/>
                     <Route exact path="/forecast" render={() => (<Forecast/>)}/>
-                    <div className='fuck-sun-hon'>
-                        <img src={`images/cloud.png`} style={this.style} className='fuck'/>
-                        <img src={`images/corgi-${8+this.props.pictureNum}.png`} onClick={this.handleClick} className='fuck-you'/>
+
+                    <div className={this.style}>
+                        <span className="arrow_b_int"></span>
+                        <span>Today is {weekday}</span>
+                        <span className="arrow_b_out"></span>
                     </div>
+
+                    <img className ='Corgi' src={`images/corgi-${8+this.props.pictureNum}.png`} onClick={this.handleClick}/>
 
                     <div className='footer'>
                         NTHU專業工具人開發團隊
@@ -116,22 +120,18 @@ class Main extends React.Component {
     }
 
     componentWillReceiveProps(){
-        if (this.props.pictureNum >= 15) {
-            this.style = {
-                display : 'inline-table'
-            };
+        if (this.props.pictureNum >= 20) {
+            this.style = 'mwt_border';
         }
         if(this.props.pictureNum == 75 ){
-            this.style = {
-                display : 'none'
-            };
+            this.style = 'hide';
             clearInterval(this.interval);
         }
-
     }
 
-}
 
+
+}
 
 export default connect(state => ({
     ...state.main,
