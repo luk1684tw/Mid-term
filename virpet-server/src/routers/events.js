@@ -50,15 +50,15 @@ router.post('/events/:id', function(req, res, next) {
 
 //create account
 router.post('/user',function(req,res,next) {
-	const {account,key} = req.params;
+	const {account,password} = req.body;
 	console.log('account received', account);
-	console.log('key received', key);
-	if (!account || !key) {
+	console.log('key received', password);
+	if (!account || !password) {
 		const err = new Error('date received wrong');
 		err.status = 400;
 		throw err;
 	}
-	eventModel.createAccount(account, key).then((status) => {
+	eventModel.createAccount(account, password).then((status) => {
 		console.log('createAccount succeed!');
 		res.json(status);
 	}).catch(next);
