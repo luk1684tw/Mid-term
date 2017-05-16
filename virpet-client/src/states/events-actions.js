@@ -86,7 +86,7 @@ export function createEvent(eventTitle, eventStartDate, eventEndDate, eventDescr
         dispatch(startEventLoading());
 
         return createEventFromApi(eventTitle, eventStartDate, eventEndDate, eventDescript, getState().user.user.account).then(events => {
-            dispatch(listEvents(getState().searchText, true, 7, getState().user.user));
+            dispatch(listEvents(getState().searchText, true, 7, getState().user.user.account));
         }).catch(err => {
             console.error('Error creating post', err);
             dispatch(endEventLoading());
