@@ -86,7 +86,7 @@ export function createEvent(eventTitle, eventStartDate, eventEndDate, eventDescr
         dispatch(startEventLoading());
 
         return createEventFromApi(eventTitle, eventStartDate, eventEndDate, eventDescript, getState().user.user.account).then(events => {
-            dispatch(listEvents(getState().searchText, true, 7, getState().user.user.account));
+            dispatch(listEvents(getState().searchText, true, getState().eventsForm.showDays));
         }).catch(err => {
             console.error('Error creating post', err);
             dispatch(endEventLoading());
@@ -98,7 +98,7 @@ export function accomplishEvent(id) {
         dispatch(startEventLoading());
         console.log('In events-action.accomplishEvent and call accomplishEventFromApiapi');
         return accomplishEventFromApi(id).then(() => {
-            dispatch(listEvents(getState().searchText, true, 7, getState().user.user.account));
+            dispatch(listEvents(getState().searchText, true, getState().eventsForm.showDays));
         }).catch(err => {
             console.error('Error accomplishing todos', err);
             dispatch(endEventLoading());
@@ -114,7 +114,7 @@ function toggleUnaccomplishedOnly() {
 export function toggleAndList() {
     return (dispatch, getState) => {
         dispatch(toggleUnaccomplishedOnly());
-        return dispatch(listEvents(getState().searchText, true, 7));
+        return dispatch(listEvents(getState().searchText, true, getState().eventsForm.showDays));
     }
 }
 //------------------------
