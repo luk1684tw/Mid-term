@@ -56,7 +56,9 @@ export function accomplishEvent(id) {
     });
 }
 export function createUser(account, password) {
-   let url = `${eventBaseUrl}/events`;
+   let url = `${eventBaseUrl}/user`;
+   console.log('In API: account = ', account);
+   console.log('In API: password = ', password);
    return axios.post(url, {
        account,
        password,

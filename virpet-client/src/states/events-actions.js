@@ -181,7 +181,6 @@ function endGetUser(user){
 export function createUser(account, password) {
     return (dispatch, getState) => {
         dispatch(startUserLoading());
-
         return createUserFromApi(account, password).then(user => {
             dispatch(endGetUser(user));
             dispatch(endUserLoading());

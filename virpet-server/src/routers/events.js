@@ -49,7 +49,7 @@ router.post('/events/:id', function(req, res, next) {
 });
 
 //create account
-router.post('/events/:account/:key',function(req,res,next) {
+router.post('/user',function(req,res,next) {
 	const {account,key} = req.params;
 	console.log('account received', account);
 	console.log('key received', key);

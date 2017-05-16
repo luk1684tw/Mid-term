@@ -140,3 +140,28 @@ export function loginForm(state = initLoginFormState, action) {
             return state;
     }
 }
+const initUserState = {
+  startUserLoading: false,
+  user: 'na',
+}
+export function user(state = initUserState, action) {
+    switch(action.type) {
+        case '@LOGIN/START_USER_LOADING':
+            return{
+                ...state,
+                startUserLoading: true
+            };
+        case '@EVENTS/END_USER_LOADING':
+            return{
+                ...state,
+                startUserLoading: false
+            };
+        case '@EVENTS/END_GET_USER':
+            return{
+                ...state,
+                user: action.user
+            };
+        default:
+            return state;
+    }
+}
