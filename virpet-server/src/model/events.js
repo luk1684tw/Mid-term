@@ -2,7 +2,7 @@ const fs = require('fs');
 const uuid = require('uuid/v4');
 const moment = require('moment');
 
-function listEvents(searchText = '', unaccomplishedOnly = false, days = 0) {
+function listEvents(searchText = '', unaccomplishedOnly = false, days = 0,accountName = '') {
     return new Promise((resolve, reject) => {
         if (!fs.existsSync('data-events.json')) {
             fs.writeFileSync('data-events.json', '');
@@ -14,7 +14,9 @@ function listEvents(searchText = '', unaccomplishedOnly = false, days = 0) {
                 reject(err);
             }
             let events = data ? JSON.parse(data) : [];
-
+            events = events.filter((e) => {
+                return (e.account === accountName);
+            })
             if (unaccomplishedOnly) {
                 events = events.filter(e => {
                     return !e.doneTs;
@@ -43,7 +45,7 @@ function listEvents(searchText = '', unaccomplishedOnly = false, days = 0) {
     });
 }
 
-function createEvent(title, startDate, endDate, description) {
+function createEvent(title, startDate, endDate, description,accountName) {
     return new Promise((resolve, reject) => {
         const newEvent = {
             id: uuid(),
@@ -52,10 +54,11 @@ function createEvent(title, startDate, endDate, description) {
             endDate: endDate,
             description: description,
 			ts: moment().unix(),
-            doneTs: null
+            doneTs: null,
+            accountName: accountName
         };
         console.log('events :',newEvent);
-        listEvents().then(events => {
+        listEvents('','','','',accountName).then(events => {
             console.log('in listEvents().then');
             events = [
                 ...events,
