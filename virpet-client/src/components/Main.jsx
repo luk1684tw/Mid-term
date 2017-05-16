@@ -74,6 +74,7 @@ class Main extends React.Component {
                                     {(this.props.user!=='')?'Welcome Master!! ':' '}
                                     {(this.props.user!=='')?this.props.account:<Login/>}
                                     {(this.props.user!=='')?<Logout/>:' '}
+                                    &nbsp;&nbsp;
                                     <div>
                                         <GoogleLogin clientId="658977310896-knrl3gka66fldh83dao2rhgbblmd4un9.apps.googleusercontent.com" buttonText="GoogleLogin" onSuccess={responseGoogle} onFailure={responseGoogle} className='btn btn-primary' offline={false}></GoogleLogin>
                                     </div>
