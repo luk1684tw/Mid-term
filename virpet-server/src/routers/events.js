@@ -13,7 +13,13 @@ router.get('/events',function(req,res,next) {
 	console.log(req.query.searchText);
 	console.log(req.query.accomplishTodo);
 	console.log(req.query.showDays);
-	eventModel.listEvents(req.query.searchText,req.query.accomplishTodo,req.query.showDays).then(events => {
+	console.log(req.query.accountName);
+	eventModel.listEvents(
+		req.query.searchText,
+		req.query.accomplishTodo,
+		req.query.showDays,
+		req.query.accountName)
+	.then(events => {
 		res.json(events);
 	}).catch(next);
 });
@@ -22,13 +28,14 @@ router.get('/events',function(req,res,next) {
 
 router.post('/events',function(req,res,next) {
 	console.log('in event.js/router.post');
-	const {eventTitle,eventStartDate,eventEndDate,eventDescript} = req.body;
-	if (!eventTitle || ! eventStartDate || !eventEndDate || !eventDescript) {
-		const err = new Error('Date incomplete');
+	const {eventTitle,eventStartDate,eventEndDate,eventDescript,accountName} = req.body;
+	if (!eventTitle || ! eventStartDate || !eventEndDate || !eventDescript || !accountName) {
+		console.log(accountName);
+		const err = new Error('Data incomplete');
 		err.status = 400;
 		throw err;
 	}
-	eventModel.createEvent(eventTitle,eventStartDate,eventEndDate,eventDescript).then(events => {
+	eventModel.createEvent(eventTitle,eventStartDate,eventEndDate,eventDescript,accountName).then(events => {
 		console.log('event created:' , events);
 		res.json(events);
 	}).catch(next);
