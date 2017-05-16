@@ -29,8 +29,7 @@ class SingleEvent extends React.Component{
       eventDescriptValue: PropTypes.string,
       eventDanger: PropTypes.bool,
       events: PropTypes.array,
-      showDayss: PropTypes.number,
-      startEventLoading:PropTypes.bool,
+      showDays: PropTypes.number,
       store: PropTypes.object,
       dispatch: PropTypes.func
     };
