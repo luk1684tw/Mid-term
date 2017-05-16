@@ -28,6 +28,7 @@ export function listEvents(unaccomplishedOnly, searchText, showDays, accountName
 }
 export function createEvent(eventTitle, eventStartDate, eventEndDate, eventDescript,accountName) {
     let url = `${eventBaseUrl}/events`;
+    console.log('In api/createEvent,accountName:', accountName);
     return axios.post(url, {
         eventTitle,
         eventStartDate,

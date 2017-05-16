@@ -15,16 +15,13 @@ import {
     InputGroupAddon
 } from 'reactstrap';
 import {connect} from 'react-redux';
-import {listEvents, createUser, changeLoginModal, account, password, loginDanger} from 'states/events-actions.js';
+import {createUser, changeLoginModal, account, password, loginDanger} from 'states/events-actions.js';
 import moment from 'moment';
 class Login extends React.Component{
     static propTypes = {
       user: PropTypes.string,
       loginModal: PropTypes.bool,
       password: PropTypes.string,
-      user: PropTypes.string,
-      searchText: PropTypes.string,
-      showDays: PropTypes.number,
       loginDanger: PropTypes.bool,
       dispatch: PropTypes.func
     };

@@ -142,7 +142,10 @@ export function loginForm(state = initLoginFormState, action) {
 }
 const initUserState = {
   startUserLoading: false,
-  user: ''
+  user: {
+      status: '',
+      account: ''
+  }
 }
 export function user(state = initUserState, action) {
     switch(action.type) {
@@ -164,7 +167,10 @@ export function user(state = initUserState, action) {
         case '@LOGIN/CLEAR_USER':
             return{
                 ...state,
-                user: ''
+                user: {
+                    status: '',
+                    account: ''
+                }
             };
         default:
             return state;
