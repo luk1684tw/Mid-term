@@ -15,9 +15,9 @@ function listEvents(searchText = '', unaccomplishedOnly = false, days = 0,accoun
             }
             let events = data ? JSON.parse(data) : [];
             if(accountName){
-                events = events.filter((e) => {
-                    return (e.account === accountName);
-                });
+              events = events.filter((e) => {
+                  return (e.account === accountName);
+              });
             }
             if (unaccomplishedOnly) {
                 events = events.filter(e => {
@@ -60,7 +60,7 @@ function createEvent(title, startDate, endDate, description,accountName) {
             accountName: accountName
         };
         console.log('events :',newEvent);
-        listEvents('','','','',accountName).then(events => {
+        listEvents('','','','','').then(events => {
             console.log('in listEvents().then');
             events = [
                 ...events,
