@@ -51,9 +51,6 @@ class Main extends React.Component {
     };
 
     render() {
-        const responseGoogle = (response) => {
-            console.log('googleId : ',response);
-        }
         const date = (new Date().getDay())%7;
         const weekday = (date === 0)? 'Sun' : (date === 1) ? 'Mon' : (date === 2) ? 'Tue'
         : (date === 3) ? 'Wen' : (date === 4) ? 'Thu' : (date === 5) ? 'Fri' : 'Sat';
@@ -120,7 +117,7 @@ class Main extends React.Component {
     }
 
     handleGooglelogin(response) {
-        console.log('response :' , response.profileObj.email);
+        console.log('response in handleGooglelogin:' , response.profileObj.email);
         this.props.dispatch(createUser(response.profileObj.email,'googleUser'));
     }
 
