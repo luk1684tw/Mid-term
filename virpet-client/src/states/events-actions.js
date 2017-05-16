@@ -79,14 +79,14 @@ export function listEvents(searchText, loading = false, showDays) {
         });
     };
 };
-export function createEvent(eventTitle, eventStartDate, eventEndDate, eventDescript) {
+export function createEvent(eventTitle, eventStartDate, eventEndDate, eventDescript, account) {
     console.log('Action.eventTitle' + eventTitle);
     console.log('Action.eventDescript' + eventDescript);
     return (dispatch, getState) => {
         dispatch(startEventLoading());
 
-        return createEventFromApi(eventTitle, eventStartDate, eventEndDate, eventDescript).then(events => {
-            dispatch(listEvents(getState().searchText, true, 7));
+        return createEventFromApi(eventTitle, eventStartDate, eventEndDate, eventDescript, account).then(events => {
+            dispatch(listEvents(getState().searchText, true, 7, account));
         }).catch(err => {
             console.error('Error creating post', err);
             dispatch(endEventLoading());
@@ -98,7 +98,7 @@ export function accomplishEvent(id) {
         dispatch(startEventLoading());
         console.log('In events-action.accomplishEvent and call accomplishEventFromApiapi');
         return accomplishEventFromApi(id).then(() => {
-            dispatch(listEvents(getState().searchText, true, 7));
+            dispatch(listEvents(getState().searchText, true, 7, getState().loginForm.account));
         }).catch(err => {
             console.error('Error accomplishing todos', err);
             dispatch(endEventLoading());
@@ -169,15 +169,16 @@ function startUserLoading(){
 };
 function endUserLoading(){
     return{
-        type: '@EVENTS/END_EVENT_LOADING'
+        type: '@LOGIN/END_EVENT_LOADING'
     };
 }
 function endGetUser(user){
+    console.log('In endGetUser', user);
     return{
-        type: '@EVENTS/END_GET_USER',
+        type: '@LOGIN/END_GET_USER',
         user
-    }
-}
+    };
+};
 export function createUser(account, password) {
     return (dispatch, getState) => {
         dispatch(startUserLoading());
@@ -188,5 +189,17 @@ export function createUser(account, password) {
             console.error('Error creating post', err);
             dispatch(endUserLoading());
         });
+    };
+};
+export function clearUser(){
+    return{
+       type: '@LOGIN/CLEAR_USER'
+    };
+}
+//--------------------------
+//--------------------------
+export function changeLogoutModal(){
+    return{
+        type: '@LOGOUT/CHANGE_LOGOUT_MODAL'
     };
 };

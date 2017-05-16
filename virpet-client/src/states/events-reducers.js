@@ -142,7 +142,7 @@ export function loginForm(state = initLoginFormState, action) {
 }
 const initUserState = {
   startUserLoading: false,
-  user: 'na',
+  user: '',
 }
 export function user(state = initUserState, action) {
     switch(action.type) {
@@ -151,15 +151,34 @@ export function user(state = initUserState, action) {
                 ...state,
                 startUserLoading: true
             };
-        case '@EVENTS/END_USER_LOADING':
+        case '@LOGIN/END_USER_LOADING':
             return{
                 ...state,
                 startUserLoading: false
             };
-        case '@EVENTS/END_GET_USER':
+        case '@LOGIN/END_GET_USER':
             return{
                 ...state,
                 user: action.user
+            };
+        case '@LOGIN/CLEAR_USER':
+            return{
+                ...state,
+                user: ''
+            };
+        default:
+            return state;
+    }
+}
+const initLogoutFormState = {
+    logoutModal: false,
+};
+export function logoutForm(state = initLogoutFormState, action) {
+    switch (action.type) {
+        case '@LOGOUT/CHANGE_LOGOUT_MODAL':
+            return{
+                 ...state,
+                 logoutModal: !state.logoutModal
             };
         default:
             return state;

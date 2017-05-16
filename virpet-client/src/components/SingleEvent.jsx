@@ -22,6 +22,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import './Main.css';
 class SingleEvent extends React.Component{
     static propTypes = {
+      user: PropTypes.string,
       modal: PropTypes.bool,
       eventTitleValue: PropTypes.string,
       eventStartDate: PropTypes.string,
@@ -101,7 +102,7 @@ class SingleEvent extends React.Component{
             return;
         }
         this.props.dispatch(changeModal());
-        this.props.dispatch(createEvent(this.props.eventTitleValue, this.props.eventStartDate, this.props.eventEndDate, this.props.eventDescriptValue));
+        this.props.dispatch(createEvent(this.props.eventTitleValue, this.props.eventStartDate, this.props.eventEndDate, this.props.eventDescriptValue, this.props.account));
         this.props.dispatch(eventTitle(''));
         this.props.dispatch(eventGetStartDate(''));
         this.props.dispatch(eventGetEndDate(''));
@@ -144,5 +145,6 @@ class SingleEvent extends React.Component{
 export default connect(state => ({
     ...state.eventForm,
     ...state.events,
-    ...state.todoForm
+    ...state.todoForm,
+    ...state.user
 }))(SingleEvent);
