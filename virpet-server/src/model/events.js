@@ -190,5 +190,6 @@ function createAccount(account,key) {
 module.exports = {
     listEvents,
     createEvent,
-	accomplishEvent
+	accomplishEvent,
+    createAccount
 };
