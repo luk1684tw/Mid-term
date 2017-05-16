@@ -66,7 +66,7 @@ class Login extends React.Component{
             this.props.dispatch(loginDanger(true));
             return;
         }
-        if (this.props.password==='') {
+        if (this.props.password=== '') {
             this.props.dispatch(loginDanger(true));
             return;
         }
