@@ -109,9 +109,8 @@ function createAccount(account,key) {
             }
             let accountfound = false;
             let accounts = data ? JSON.parse(data) : [] ;
-
             let status = 'account-not-found';
-
+            console.log('Get JSON Accounts: accounts = ', accounts);
             if (data) {
                 accounts =  accounts.filter((item) => {
                     //todo : check if account exist and set accountfound to true
