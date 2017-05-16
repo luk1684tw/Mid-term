@@ -18,10 +18,10 @@ import {
 } from 'reactstrap';
 import {connect} from 'react-redux';
 import SingleEvent from 'components/SingleEvent.jsx';
-import Today from 'components/Today.jsx';
 import Forecast from 'components/Forecast.jsx';
 import {setSearchText} from 'states/events-actions.js';
 import {toggleNavbar,Animated} from 'states/main-actions.js';
+import Login from 'components/Login.jsx';
 import GoogleLogin from 'react-google-login';
 import './Main.css';
 
@@ -66,9 +66,10 @@ class Main extends React.Component {
 
                                     <SingleEvent/>
                                     &nbsp;&nbsp;
-                                    <div>
+                                    <Login/>
+                                    {/* <div>
                                         <GoogleLogin clientId="658977310896-knrl3gka66fldh83dao2rhgbblmd4un9.apps.googleusercontent.com" buttonText="Login with Google" onSuccess={responseGoogle} onFailure={responseGoogle} className='btn btn-secondary' offline={false}></GoogleLogin>
-                                    </div>
+                                    </div> */}
                                     <div className='search ml-auto'>
                                         <Input className='ml-auto' type='text' placeholder='Search' onKeyPress={this.handleSearchKeyPress} getRef={e => this.searchEl = e}></Input>{this.props.searchText && <i className='navbar-text fa fa-times' onClick={this.handleClearSearch}></i>
 }
