@@ -31,12 +31,14 @@ import './Forecast.css';
 
 class Forecast extends React.Component {
     static propTypes = {
+        user: PropTypes.string,
+        account: PropTypes.string,
 		    startEventLoading: PropTypes.bool,
         events: PropTypes.array,
         showDays: PropTypes.number,
         unaccomplishedOnly: PropTypes.bool,
         searchText: PropTypes.string,
-		      dispatch: PropTypes.func
+		    dispatch: PropTypes.func
     };
 
     constructor(props) {
@@ -45,7 +47,7 @@ class Forecast extends React.Component {
     }
 
     componentDidMount() {
-        this.props.dispatch(listEvents(this.props.searchText, false, this.props.showDays));
+        this.props.dispatch(listEvents(this.props.searchText, false, this.props.showDays, this.props.account));
     }
 
     componentWillUnmount() {
@@ -54,7 +56,7 @@ class Forecast extends React.Component {
     componentWillReceiveProps(nextProps) {
         console.log('nextProps.searchText = ',nextProps.searchText, ' this.props.searchText = ', this.props.searchText);
         if (nextProps.searchText !== this.props.searchText) {
-            this.props.dispatch(listEvents(nextProps.searchText, false, this.props.showDays));
+            this.props.dispatch(listEvents(nextProps.searchText, false, this.props.showDays, this.props.account));
         }
     }
 
@@ -123,5 +125,7 @@ export default connect(state => ({
     ...state.forecast,
     ...state.events,
     ...state.todoForm,
+    ...state.user,
+    ...state.loginForm,
     searchText: state.searchText
 }))(Forecast);

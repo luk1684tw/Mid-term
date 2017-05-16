@@ -79,14 +79,14 @@ export function listEvents(searchText, loading = false, showDays) {
         });
     };
 };
-export function createEvent(eventTitle, eventStartDate, eventEndDate, eventDescript) {
+export function createEvent(eventTitle, eventStartDate, eventEndDate, eventDescript, account) {
     console.log('Action.eventTitle' + eventTitle);
     console.log('Action.eventDescript' + eventDescript);
     return (dispatch, getState) => {
         dispatch(startEventLoading());
 
-        return createEventFromApi(eventTitle, eventStartDate, eventEndDate, eventDescript).then(events => {
-            dispatch(listEvents(getState().searchText, true, 7));
+        return createEventFromApi(eventTitle, eventStartDate, eventEndDate, eventDescript, account).then(events => {
+            dispatch(listEvents(getState().searchText, true, 7, account));
         }).catch(err => {
             console.error('Error creating post', err);
             dispatch(endEventLoading());
@@ -98,7 +98,7 @@ export function accomplishEvent(id) {
         dispatch(startEventLoading());
         console.log('In events-action.accomplishEvent and call accomplishEventFromApiapi');
         return accomplishEventFromApi(id).then(() => {
-            dispatch(listEvents(getState().searchText, true, 7));
+            dispatch(listEvents(getState().searchText, true, 7, getState().loginForm.account));
         }).catch(err => {
             console.error('Error accomplishing todos', err);
             dispatch(endEventLoading());

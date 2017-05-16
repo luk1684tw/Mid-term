@@ -29,6 +29,7 @@ import './Main.css';
 
 class Main extends React.Component {
     static propTypes = {
+        account: PropTypes.string,
         user: PropTypes.string,
         searchText: PropTypes.string,
         navbarToggle: PropTypes.bool,
@@ -69,10 +70,9 @@ class Main extends React.Component {
 
                                     <SingleEvent/>
                                     &nbsp;&nbsp;
-                                    {(this.props.user!=='')?this.props.user:<Login/>}
-                                    {this.props.user}
-                                    <Logout/>
-                                    <Login/>
+                                    {(this.props.user!=='')?'Welcome Master!! ':' '}
+                                    {(this.props.user!=='')?this.props.account:<Login/>}
+                                    {(this.props.user!=='')?<Logout/>:' '}
                                     <div>
                                         <GoogleLogin clientId="658977310896-knrl3gka66fldh83dao2rhgbblmd4un9.apps.googleusercontent.com" buttonText="Login with Google" onSuccess={responseGoogle} onFailure={responseGoogle} className='btn btn-secondary' offline={false}></GoogleLogin>
                                     </div>
@@ -142,5 +142,6 @@ class Main extends React.Component {
 export default connect(state => ({
     ...state.main,
     ...state.user,
+    ...state.loginForm,
     searchText: state.searchText
 }))(Main);
