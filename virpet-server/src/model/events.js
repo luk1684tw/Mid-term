@@ -156,6 +156,10 @@ function createAccount(account,key) {
                     console.log('read account failed');
                     reject(err);
                 }
+                let returned = {
+                    status: 'Uninitialized',
+                    account: account
+                };
                 let accounts = data? JSON.parse(data) : [];
                 console.log('account get in createAccount',accountfound);
                     // console.log(typeof accountfound[0]);
@@ -169,6 +173,8 @@ function createAccount(account,key) {
                         account: account,
                         key: key
                     };
+
+                    console.log(returned.status);
                     accounts = [
                         ...accounts,
                         newAccount
@@ -176,11 +182,11 @@ function createAccount(account,key) {
                     console.log('.JSON : ', accounts);
                     fs.writeFile('data-accounts.json', JSON.stringify(accounts), err => {
                         if (err) {
-                            status = 'Create-Account-failed';
-                            resolve(status);
+                            returned.status = 'Create-Account-failed';
+                            resolve(returned);
                         } else {
-                            status = 'Create-Account-succeed';
-                            resolve(status);
+                            returned.status = 'Create-Account-succeed';
+                            resolve(returned);
                         }
                     });
                 } else {
@@ -194,11 +200,11 @@ function createAccount(account,key) {
                         }
                     });
                     if (typeof accounts[0] !== 'undefined') {
-                        status = 'login-success!';
-                        resolve(status);
+                        returned.status = 'login-success!';
+                        resolve(returned);
                     } else {
-                        status = 'Wrong-Key!';
-                        resolve(status);
+                        returned.status = 'Wrong-Key!';
+                        resolve(returned);
                     }
                 }
             });

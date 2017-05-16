@@ -66,6 +66,7 @@ router.post('/user',function(req,res,next) {
 		throw err;
 	}
 	eventModel.createAccount(account, password).then((status) => {
+		console.log('data get in createAccount :', status);
 		res.json(status);
 	}).catch(next);
 })

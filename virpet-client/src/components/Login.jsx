@@ -23,7 +23,6 @@ class Login extends React.Component{
       loginModal: PropTypes.bool,
       account: PropTypes.string,
       password: PropTypes.string,
-      user: PropTypes.string,
       loginDanger: PropTypes.bool,
       dispatch: PropTypes.func
     };
