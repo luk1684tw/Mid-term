@@ -56,9 +56,6 @@ class Forecast extends React.Component {
         if (nextProps.searchText !== this.props.searchText) {
             this.props.dispatch(listEvents(nextProps.searchText, false, this.props.showDays));
         }
-        if (nextProps.user!==this.props.user){
-            this.props.dispatch(listEvents(nextProps.searchText, false, this.props.showDays));
-        }
     }
 
     render() {
