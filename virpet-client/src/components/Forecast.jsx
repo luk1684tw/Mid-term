@@ -32,7 +32,6 @@ import './Forecast.css';
 class Forecast extends React.Component {
     static propTypes = {
         user: PropTypes.string,
-        account: PropTypes.string,
 		    startEventLoading: PropTypes.bool,
         events: PropTypes.array,
         showDays: PropTypes.number,
@@ -47,16 +46,18 @@ class Forecast extends React.Component {
     }
 
     componentDidMount() {
-        this.props.dispatch(listEvents(this.props.searchText, false, this.props.showDays, this.props.account));
+        console.log(this.props.account);
+        this.props.dispatch(listEvents(this.props.searchText, false, this.props.showDays));
     }
 
-    componentWillUnmount() {
-    }
 
     componentWillReceiveProps(nextProps) {
         console.log('nextProps.searchText = ',nextProps.searchText, ' this.props.searchText = ', this.props.searchText);
         if (nextProps.searchText !== this.props.searchText) {
-            this.props.dispatch(listEvents(nextProps.searchText, false, this.props.showDays, this.props.account));
+            this.props.dispatch(listEvents(nextProps.searchText, false, this.props.showDays));
+        }
+        if (nextProps.user!==this.props.user){
+            this.props.dispatch(listEvents(nextProps.searchText, false, this.props.showDays));
         }
     }
 
