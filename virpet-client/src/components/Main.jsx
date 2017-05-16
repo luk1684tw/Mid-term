@@ -50,7 +50,7 @@ class Main extends React.Component {
 
     render() {
         const responseGoogle = (response) => {
-            console.log(response);
+            console.log('googleId : ',response);
         }
         const date = (new Date().getDay())%7;
         const weekday = (date === 0)? 'Sun' : (date === 1) ? 'Mon' : (date === 2) ? 'Tue'
@@ -77,8 +77,8 @@ class Main extends React.Component {
                                         <GoogleLogin clientId="658977310896-knrl3gka66fldh83dao2rhgbblmd4un9.apps.googleusercontent.com" buttonText="Login with Google" onSuccess={responseGoogle} onFailure={responseGoogle} className='btn btn-secondary' offline={false}></GoogleLogin>
                                     </div>
                                     <div className='search ml-auto'>
-                                        <Input className='ml-auto' type='text' placeholder='Search' onKeyPress={this.handleSearchKeyPress} getRef={e => this.searchEl = e}></Input>{this.props.searchText && <i className='navbar-text fa fa-times' onClick={this.handleClearSearch}></i>
-}
+                                        <Input className='ml-auto' type='text' placeholder='Search' onKeyPress={this.handleSearchKeyPress} getRef={e => this.searchEl = e}></Input>
+                                        {this.props.searchText && <i className='navbar-text fa fa-times' onClick={this.handleClearSearch}></i>}
                                     </div>
                                 </Collapse>
                             </Navbar>
