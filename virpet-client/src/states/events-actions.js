@@ -69,7 +69,7 @@ export function listEvents(searchText, loading = false, showDays) {
         if (!loading)
             dispatch(startEventLoading());
 
-        return listEventsFromApi(getState().events.unaccomplishedOnly, searchText, showDays).then(events => {
+        return listEventsFromApi(getState().events.unaccomplishedOnly, searchText, showDays, getState().user.user.account).then(events => {
             dispatch(endListEvents(events));
             dispatch(endEventLoading());
             console.log('Events in actions.listEvents', events);
@@ -79,14 +79,14 @@ export function listEvents(searchText, loading = false, showDays) {
         });
     };
 };
-export function createEvent(eventTitle, eventStartDate, eventEndDate, eventDescript, account) {
+export function createEvent(eventTitle, eventStartDate, eventEndDate, eventDescript) {
     console.log('Action.eventTitle' + eventTitle);
     console.log('Action.eventDescript' + eventDescript);
     return (dispatch, getState) => {
         dispatch(startEventLoading());
 
-        return createEventFromApi(eventTitle, eventStartDate, eventEndDate, eventDescript, account).then(events => {
-            dispatch(listEvents(getState().searchText, true, 7, account));
+        return createEventFromApi(eventTitle, eventStartDate, eventEndDate, eventDescript, getState().user.user.account).then(events => {
+            dispatch(listEvents(getState().searchText, true, 7, getState().user.user));
         }).catch(err => {
             console.error('Error creating post', err);
             dispatch(endEventLoading());
@@ -98,7 +98,7 @@ export function accomplishEvent(id) {
         dispatch(startEventLoading());
         console.log('In events-action.accomplishEvent and call accomplishEventFromApiapi');
         return accomplishEventFromApi(id).then(() => {
-            dispatch(listEvents(getState().searchText, true, 7, getState().loginForm.account));
+            dispatch(listEvents(getState().searchText, true, 7, getState().user.user.account));
         }).catch(err => {
             console.error('Error accomplishing todos', err);
             dispatch(endEventLoading());

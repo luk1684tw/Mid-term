@@ -102,7 +102,7 @@ class SingleEvent extends React.Component{
             return;
         }
         this.props.dispatch(changeModal());
-        this.props.dispatch(createEvent(this.props.eventTitleValue, this.props.eventStartDate, this.props.eventEndDate, this.props.eventDescriptValue, this.props.account));
+        this.props.dispatch(createEvent(this.props.eventTitleValue, this.props.eventStartDate, this.props.eventEndDate, this.props.eventDescriptValue));
         this.props.dispatch(eventTitle(''));
         this.props.dispatch(eventGetStartDate(''));
         this.props.dispatch(eventGetEndDate(''));

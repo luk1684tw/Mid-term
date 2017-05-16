@@ -73,9 +73,9 @@ class Main extends React.Component {
                                     <SingleEvent/>
                                     &nbsp;&nbsp;
 
-                                    {(this.props.user !== '')?'Welcome Master!! ':' '}
-                                    {(this.props.user !== '')?this.props.account:<Login/>}
-                                    {(this.props.user !== '')?<Logout/>:' '}
+                                    {(this.props.user.status !== '')?'Welcome Master!! ':' '}
+                                    {(this.props.user.status !== '')?this.props.user.account:<Login/>}
+                                    {(this.props.user.status !== '')?<Logout/>:' '}
                                     &nbsp;&nbsp;
                                     <div>
                                         <GoogleLogin clientId="658977310896-knrl3gka66fldh83dao2rhgbblmd4un9.apps.googleusercontent.com" buttonText="GoogleLogin" onSuccess={this.handleGooglelogin} onFailure={this.handleGooglelogin} className='btn btn-primary' offline={false}></GoogleLogin>
