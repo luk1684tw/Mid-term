@@ -45,7 +45,7 @@ class Main extends React.Component {
         this.handleSearchKeyPress = this.handleSearchKeyPress.bind(this);
         this.handleClearSearch = this.handleClearSearch.bind(this);
         this.style = 'hide';
-        this.handleClick = this.handleClick.bind(this);
+        this.handleCorgiClick = this.handleCorgiClick.bind(this);
     };
 
     render() {
@@ -96,7 +96,7 @@ class Main extends React.Component {
                         <span className="arrow_b_out"></span>
                     </div>
 
-                    <img className ='Corgi' src={`images/corgi-${8+this.props.pictureNum}.png`} onClick={this.handleClick}/>
+                    <img className ='Corgi' src={`images/corgi-${8+this.props.pictureNum}.png`} onClick={this.handleCorgiClick}/>
 
                     <div className='footer'>
                         NTHU專業工具人開發團隊
@@ -122,7 +122,7 @@ class Main extends React.Component {
         this.searchEl.value = '';
     }
 
-    handleClick(){
+    handleCorgiClick(){
         clearInterval(this.interval);
         this.interval = setInterval(()=>{this.props.dispatch(Animated())}, 60);
     }
