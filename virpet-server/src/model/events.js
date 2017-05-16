@@ -97,7 +97,7 @@ function accomplishEvent(id) {
     });
 }
 
-function listAccount(account,key) {
+function listAccount(account = '',key = '') {
     return new Promise((resolve,reject) => {
         if (!fs.existsSync('data-accounts.json')) {
             fs.writeFileSync('data-accounts.json', '');
@@ -120,12 +120,11 @@ function listAccount(account,key) {
                     console.log('account found');
                     return true;
                 } else {
-                    accountfound = false;
                     console.log('account not found');
                     return false
                 }
             });
-            resolve(accounts);
+            resolve(accountfound);
         })
     })
 
@@ -133,65 +132,57 @@ function listAccount(account,key) {
 function createAccount(account,key) {
     return new Promise((resolve,reject) => {
         listAccount(account,key).then(accountfound => {
-            if (!accountfound){
-                //todo : create an account and write into data-accounts
-                const newAccount = {
-                    id: uuid(),
-                    account: account,
-                    key: key
-                };
-                accountfound = [
-                    ...accountfound,
-                    newAccount
-                ];
-                fs.writeFile('data-accounts.json', JSON.stringify(accountfound), err => {
-                    if (err) {
-                        status = 'Create-Account-failed';
-                        resolve(status);
-                    } else {
-                        status = 'Create-Account-succeed';
-                        resolve(status);
-                    }
-                });
-            } else {
-                accountfound = accountfound.filter((ac) => {
-                    if (ac.key === key) {
-                        console.log('account-key-matched!');
-                        return true;
-                    } else {
-                        console.log('account-key-not-matched!');
-                        return false;
-                    }
-                });
-                if (accountfound) {
-                    status = 'login-success!';
-                    resolve(status);
-                } else {
-                    status = 'Wrong-Key!';
-                    resolve(status);
+            fs.readFile('data-accounts.json', 'utf8', (err, data) => {
+                if (err) {
+                    console.log('read account failed');
+                    reject(err);
                 }
-            }
-            // } else {
-            //     const newAccount = {
-            //         id: uuid(),
-            //         account: account,
-            //         key: key
-            //     };
-            //     accounts = [
-            //         ...accounts,
-            //         newAccount
-            //     ];
-            //     fs.writeFile('data-accounts.json', JSON.stringify(accounts), err => {
-            //         if (err) {
-            //             status = 'Create-Account-failed';
-            //             resolve(status);
-            //         } else {
-            //             status = 'Create-Account-succeed';
-            //             resolve(status);
-            //         }
-            //     });
-            // }
-        // });
+                let accounts = data? JSON.parse(data) : [];
+                console.log('account get in createAccount',accountfound);
+                    // console.log(typeof accountfound[0]);
+                    // console.log(typeof accountfound[0] === 'undefined');
+                if (!accountfound){
+                    console.log('accountfound is empty');
+
+                    //todo : create an account and write into data-accounts
+                    const newAccount = {
+                        id: uuid(),
+                        account: account,
+                        key: key
+                    };
+                    accounts = [
+                        ...accounts,
+                        newAccount
+                    ];
+                    console.log('.JSON : ', accounts);
+                    fs.writeFile('data-accounts.json', JSON.stringify(accounts), err => {
+                        if (err) {
+                            status = 'Create-Account-failed';
+                            resolve(status);
+                        } else {
+                            status = 'Create-Account-succeed';
+                            resolve(status);
+                        }
+                    });
+                } else {
+                    accounts = accounts.filter((ac) => {
+                        if (ac.key === key) {
+                            console.log('account-key-matched!');
+                            return true;
+                        } else {
+                            console.log('account-key-not-matched!');
+                            return false;
+                        }
+                    });
+                    if (typeof accounts[0] !== 'undefined') {
+                        status = 'login-success!';
+                        resolve(status);
+                    } else {
+                        status = 'Wrong-Key!';
+                        resolve(status);
+                    }
+                }
+            });
         });
     });
 }
