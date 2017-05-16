@@ -97,7 +97,7 @@ function accomplishEvent(id) {
     });
 }
 
-function createAccount(account,key) {
+function listAccount(account,key) {
     return new Promise((resolve,reject) => {
         if (!fs.existsSync('data-accounts.json')) {
             fs.writeFileSync('data-accounts.json', '');
@@ -110,68 +110,38 @@ function createAccount(account,key) {
             let accountfound = false;
             let accounts = data ? JSON.parse(data) : [] ;
             let status = 'account-not-found';
-            console.log('Get JSON Accounts: accounts = ', accounts);
-            if (data) {
-                accounts =  accounts.filter((item) => {
-                    //todo : check if account exist and set accountfound to true
-                    if (item.account === account) {
-                        accountfound = true;
-                        console.log('account found');
-                        return true;
-                    } else {
-                        console.log('account not found');
-                        return false
-                    }
-                })
-                if (!accountfound){
-                    //todo : create an account and write into data-accounts
-                    const newAccount = {
-                        id: uuid(),
-                        account: account,
-                        key: key
-                    };
-                    accounts = [
-                        ...accounts,
-                        newAccount
-                    ];
-                    fs.writeFile('data-accounts.json', JSON.stringify(accounts), err => {
-                        if (err) {
-                            status = 'Create-Account-failed';
-                            resolve(status);
-                        } else {
-                            status = 'Create-Account-succeed';
-                            resolve(status);
-                        }
-                    });
+            accounts =  accounts.filter((item) => {
+                //todo : check if account exist and set accountfound to true
+                if (item.account === account) {
+                    accountfound = true;
+                    console.log('account found');
+                    return true;
                 } else {
-                    accounts = accounts.filter((ac) => {
-                        if (ac.key === key) {
-                            console.log('account-key-matched!');
-                            return true;
-                        } else {
-                            console.log('account-key-not-matched!');
-                            return false;
-                        }
-                    });
-                    if (accounts) {
-                        status = 'login-success!';
-                        resolve(status);
-                    } else {
-                        status = 'Wrong-Key!';
-                        resolve(status);
-                    }
+                    accountfound = false;
+                    console.log('account not found');
+                    return false
                 }
-            } else {
+            });
+            resolve(accounts);
+        })
+    })
+
+}
+function createAccount(account,key) {
+    return new Promise((resolve,reject) => {
+        listAccount(account,key).then(accountfound => {
+            if (!accountfound){
+                //todo : create an account and write into data-accounts
                 const newAccount = {
                     id: uuid(),
                     account: account,
                     key: key
                 };
-                accounts = [
-                    ...accounts,
+                accountfound = [
+                    ...accountfound,
                     newAccount
                 ];
-                fs.writeFile('data-accounts.json', JSON.stringify(accounts), err => {
+                fs.writeFile('data-accounts.json', JSON.stringify(accountfound), err => {
                     if (err) {
                         status = 'Create-Account-failed';
                         resolve(status);
@@ -180,7 +150,45 @@ function createAccount(account,key) {
                         resolve(status);
                     }
                 });
+            } else {
+                accountfound = accountfound.filter((ac) => {
+                    if (ac.key === key) {
+                        console.log('account-key-matched!');
+                        return true;
+                    } else {
+                        console.log('account-key-not-matched!');
+                        return false;
+                    }
+                });
+                if (accountfound) {
+                    status = 'login-success!';
+                    resolve(status);
+                } else {
+                    status = 'Wrong-Key!';
+                    resolve(status);
+                }
             }
+            // } else {
+            //     const newAccount = {
+            //         id: uuid(),
+            //         account: account,
+            //         key: key
+            //     };
+            //     accounts = [
+            //         ...accounts,
+            //         newAccount
+            //     ];
+            //     fs.writeFile('data-accounts.json', JSON.stringify(accounts), err => {
+            //         if (err) {
+            //             status = 'Create-Account-failed';
+            //             resolve(status);
+            //         } else {
+            //             status = 'Create-Account-succeed';
+            //             resolve(status);
+            //         }
+            //     });
+            // }
+        // });
         });
     });
 }
