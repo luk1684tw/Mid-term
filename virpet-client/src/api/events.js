@@ -64,11 +64,12 @@ export function createUser(account, password) {
        account,
        password,
    }).then(function(res) {
-       console.log('client recieved:');
-       console.log(res.data);
-       if (res.status !== 200)
-           throw new Error(`Unexpected response code: ${res.status}`);
-
+        console.log('client recieved:');
+        console.log(res.data);
+        if (res.status !== 200)
+            throw new Error(`Unexpected response code: ${res.status}`);
+        else
+            listEvents(false,'',7,res.data.account);
        return res.data;
    });
 }
