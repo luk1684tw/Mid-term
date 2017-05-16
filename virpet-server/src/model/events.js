@@ -112,10 +112,21 @@ function listAccount(account = '',key = '') {
             }
             let accountfound = false;
             let accounts = data ? JSON.parse(data) : [] ;
-
             let status = 'account-not-found';
-
-
+            if(account){
+              accounts =  accounts.filter((item) => {
+                  //todo : check if account exist and set accountfound to true
+                  if (item.account === account) {
+                      accountfound = true;
+                      console.log('account found');
+                      return true;
+                  } else {
+                      accountfound = false;
+                      console.log('account not found');
+                      return false
+                  }
+              });
+            }
             accounts =  accounts.filter((item) => {
                 //todo : check if account exist and set accountfound to true
                 if (item.account === account) {
@@ -134,6 +145,11 @@ function listAccount(account = '',key = '') {
 }
 function createAccount(account,key) {
     return new Promise((resolve,reject) => {
+        const newAccount = {
+            id: uuid(),
+            account: account,
+            key: key
+        };
         listAccount(account,key).then(accountfound => {
             fs.readFile('data-accounts.json', 'utf8', (err, data) => {
                 if (err) {
