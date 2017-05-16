@@ -23,6 +23,7 @@ class Login extends React.Component{
       loginModal: PropTypes.bool,
       account: PropTypes.string,
       password: PropTypes.string,
+      user: PropTypes.string,
       loginDanger: PropTypes.bool,
       dispatch: PropTypes.func
     };
@@ -36,12 +37,12 @@ class Login extends React.Component{
         this.handleLogin = this.handleLogin.bind(this);
     }
     componentWillReceiveProps(){
-          if(this.props.user==='login-success!' || this.props.user==='Create-Account-succeed'){
-
-          }else{
-            this.props.dispatch(account(''));
-            this.props.dispatch(password(''));
-          }
+          // if(this.props.user==='login-success!' || this.props.user==='Create-Account-succeed'){
+          //
+          // }else{
+          //   this.props.dispatch(account(''));
+          //   this.props.dispatch(password(''));
+          // }
     }
     render(){
       return(
