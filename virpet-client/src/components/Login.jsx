@@ -15,14 +15,15 @@ import {
     InputGroupAddon
 } from 'reactstrap';
 import {connect} from 'react-redux';
-import {createUser, changeLoginModal, account, password, loginDanger} from 'states/events-actions.js';
+import {listEvents, createUser, changeLoginModal, account, password, loginDanger} from 'states/events-actions.js';
 import moment from 'moment';
 class Login extends React.Component{
     static propTypes = {
       loginModal: PropTypes.bool,
-      account: PropTypes.string,
       password: PropTypes.string,
       user: PropTypes.string,
+      searchText: PropTypes.string,
+      showDays: PropTypes.number,
       loginDanger: PropTypes.bool,
       dispatch: PropTypes.func
     };
@@ -34,14 +35,6 @@ class Login extends React.Component{
         this.handlePasswordChange = this.handlePasswordChange.bind(this);
         this.handleToggle = this.handleToggle.bind(this);
         this.handleLogin = this.handleLogin.bind(this);
-    }
-    componentWillReceiveProps(){
-          // if(this.props.user==='login-success!' || this.props.user==='Create-Account-succeed'){
-          //
-          // }else{
-          //   this.props.dispatch(account(''));
-          //   this.props.dispatch(password(''));
-          // }
     }
     render(){
       return(
@@ -81,6 +74,8 @@ class Login extends React.Component{
         }
         this.props.dispatch(changeLoginModal());
         this.props.dispatch(createUser(this.props.account, this.props.password));
+        this.props.dispatch(account(''));
+        this.props.dispatch(password(''));
     }
     handleAccountChange(e) {
         const text = e.target.value;
@@ -101,5 +96,7 @@ class Login extends React.Component{
 }
 export default connect(state => ({
     ...state.loginForm,
-    ...state.user
+    ...state.user,
+    ...state.eventsForm,
+    searchText: state.searchText
 }))(Login);

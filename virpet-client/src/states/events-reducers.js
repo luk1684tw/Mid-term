@@ -142,7 +142,7 @@ export function loginForm(state = initLoginFormState, action) {
 }
 const initUserState = {
   startUserLoading: false,
-  user: '',
+  user: ''
 }
 export function user(state = initUserState, action) {
     switch(action.type) {
