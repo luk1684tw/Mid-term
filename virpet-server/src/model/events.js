@@ -207,6 +207,7 @@ function createAccount(account,key) {
                         resolve(returned);
                     } else {
                         returned.status = 'Wrong-Key!';
+                        returned.account = '';
                         resolve(returned);
                     }
                 }
