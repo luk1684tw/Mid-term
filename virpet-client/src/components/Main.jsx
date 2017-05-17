@@ -66,14 +66,15 @@ class Main extends React.Component {
                                 <NavbarToggler right onClick={this.handleNavbarToggle}/>
                                 <NavbarBrand className='' href="/">Virpet</NavbarBrand>&nbsp;&nbsp;
                                 <Collapse isOpen={this.props.navbarToggle} navbar>
-                                    {(this.props.user.status !== '')?<SingleEvent/>:'  '}
-                                    {(this.props.user.status !== '')?'Welcome Master!! ':' '}
-                                    {(this.props.user.status !== '')?this.props.user.account:<Login/>}
-                                    {(this.props.user.status !== '')?<Logout/>:' '}
+                                    {(this.props.user.account !== '')?<SingleEvent/>:'  '}
+                                    {(this.props.user.account !== '')?'Welcome !!':' '}
+                                    {(this.props.user.account !== '')?this.props.user.account:<Login/>}
+                                    {(this.props.user.account !== '')?<Logout/>:' '}
                                     &nbsp;&nbsp;
-                                    <div>
-                                        <GoogleLogin clientId="658977310896-knrl3gka66fldh83dao2rhgbblmd4un9.apps.googleusercontent.com" buttonText="GoogleLogin" onSuccess={this.handleGooglelogin} onFailure={this.handleGooglelogin} className='btn btn-primary' offline={false}></GoogleLogin>
-                                    </div>
+                                    {(this.props.user.account !== '')?'':
+                                      <GoogleLogin clientId="658977310896-knrl3gka66fldh83dao2rhgbblmd4un9.apps.googleusercontent.com" buttonText="GoogleLogin" onSuccess={this.handleGooglelogin} onFailure={this.handleGooglelogin} className='btn btn-primary' offline={false}></GoogleLogin>
+
+                                    }
                                     <div className='search ml-auto'>
                                         <Input className='ml-auto' type='text' placeholder='Search' onKeyPress={this.handleSearchKeyPress} getRef={e => this.searchEl = e}></Input>
                                         {this.props.searchText && <i className='navbar-text fa fa-times' onClick={this.handleClearSearch}></i>}
