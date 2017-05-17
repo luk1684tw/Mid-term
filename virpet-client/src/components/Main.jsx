@@ -117,7 +117,7 @@ class Main extends React.Component {
                         <span className="arrow_b_int"></span>
                         <div>
                             <span>{weekday}</span><br/>
-                            <span>{e}</span>
+                            <span>今天你要 : {e}</span>
                         </div>
                         <span className="arrow_b_out"></span>
                     </div>
