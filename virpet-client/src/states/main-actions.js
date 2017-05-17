@@ -4,8 +4,15 @@ export function toggleNavbar() {
     };
 }
 
-export function Animated() {
+export function Animated(pictureNum) {
     return {
-        type: '@MAIN/Animated'
+        type: '@MAIN/Animated',
+        pictureNum: pictureNum
+    };
+}
+
+export function Show() {
+    return {
+        type: '@MAIN/Show'
     };
 }
