@@ -90,14 +90,15 @@ class Main extends React.Component {
             <Router>
                 <div className='main'>
                     <div className='bg-faded'>
-                        <div className='container'>
-                            <Navbar color='faded' light toggleable>
+                        <div className='container'　>
+                            <Navbar color='faded' light toggleable align-items-flex-start>
+
                                 <NavbarToggler right onClick={this.handleNavbarToggle}/>
                                 <NavbarBrand className='' href="/">Virpet</NavbarBrand>&nbsp;&nbsp;
                                 <Collapse isOpen={this.props.navbarToggle} navbar>
-
-                                    {(this.props.user.account !== '')?<SingleEvent/>:'  '}
                                     {(this.props.user.account !== '')?'Welcome !!':' '}
+                                    {(this.props.user.account !== '')?<SingleEvent/>:'  '}
+
                                     {(this.props.user.account !== '')?this.props.user.account:<Login/>}
                                     {(this.props.user.account !== '')?<Logout/>:' '}
 
