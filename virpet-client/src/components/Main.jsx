@@ -26,8 +26,8 @@ import Logout from 'components/Logout.jsx';
 import GoogleLogin from 'react-google-login';
 import {createUser, changeLoginModal, account, password, loginDanger} from 'states/events-actions.js';
 import moment from 'moment';
-import './Main.css';
-
+//import './Main.css';
+import './main.scss';
 
 class Main extends React.Component {
     static propTypes = {

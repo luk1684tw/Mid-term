@@ -9,7 +9,7 @@ export function searchText(state = '', action) {
 const initEventState = {
   startEventLoading: false,
   events: [],
-  unaccomplishedOnly: false,
+  unaccomplishedOnly: true,
   removedEvents: []
 }
 export function events(state = initEventState, action) {

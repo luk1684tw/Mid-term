@@ -17,7 +17,9 @@ import {
     Container,
     Row,
     Col,
-    Jumbotron
+    Jumbotron,
+    ListGroup,
+    ListGroupItem
 } from 'reactstrap';
 import TodoForm from 'components/TodoForm.jsx';
 import TodoList from 'components/TodoList.jsx';
@@ -25,7 +27,8 @@ import Shuffle from 'components/Shuffle.jsx';
 import {listEvents, toggleAndList} from 'states/events-actions.js';
 import Days from 'components/Days.jsx'
 import './Forecast.css';
-import './shuffle.css';
+import './TodoList.css';
+import './shuffle.scss';
 
 class Forecast extends React.Component {
     static propTypes = {
@@ -73,12 +76,15 @@ class Forecast extends React.Component {
                     <div className='label d-flex justify-content-between align-items-end'>
                         <h4>
                             <i className='fa fa-tags' aria-hidden="true"></i>&nbsp;&nbsp;記事本</h4>
-                        <div><Input type="checkbox" checked={this.props.unaccomplishedOnly} onClick={this.toggleUnaccomplishedOnly}/>&nbsp;<Label className='accomplished-only' onClick={this.toggleUnaccomplishedOnly}>未完成事項</Label>
+                        <div><Input type="checkbox" checked={!this.props.unaccomplishedOnly} onClick={this.toggleUnaccomplishedOnly}/>&nbsp;<Label className='accomplished-only' onClick={this.toggleUnaccomplishedOnly}>顯示完成事項</Label>
                         </div>
                     </div>
                     <TodoForm/>
-                    <Shuffle/>
-                    <TodoList events={events}/>{startEventLoading && <Alert color='warning' className='loading'>Loading...</Alert>
+                    {this.props.user.account!==''? <Shuffle/>: <div className='todo-list'><ListGroup><ListGroupItem className='empty d-flex justify-content-center align-items-center'>
+                      <div className='empty-text'>請先點上方的登入喔</div>
+                   </ListGroupItem></ListGroup></div>}
+                    {/* <TodoList events={events}/> */}
+                    {startEventLoading && <Alert color='warning' className='loading'>載入中 請稍後...</Alert>
 }
                 </div>
             </div>

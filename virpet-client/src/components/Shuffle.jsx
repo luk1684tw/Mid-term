@@ -6,19 +6,44 @@ import shuffle from 'lodash/shuffle';
 import throttle from 'lodash/throttle';
 import FlipMove from 'react-flip-move';
 import Toggle from 'components/Toggle.jsx';
-import {refreshEvents, refreshRemovedEvents} from 'states/events-actions.js';
-import './shuffle.css';
+import {refreshEvents, refreshRemovedEvents, accomplishEvent} from 'states/events-actions.js';
+import {
+    ListGroup,
+    ListGroupItem
+} from 'reactstrap';
+import './shuffle.scss';
+import './TodoItem.css';
 
 class ListItem extends React.Component {
+  constructor(props){
+    super(props);
+    this.handleOnClick = this.handleOnClick.bind(this);
+  }
+  handleOnClick(){
+    this.props.dispatch(accomplishEvent(this.props.id));
+    this.props.clickHandler();
+  }
   render() {
     const listClass = `list-item card ${this.props.view}`;
     const style = { zIndex: 100 - this.props.index };
 
     return (
-      <li id={this.props.id} className={listClass} style={style}>
-        <h3>{this.props.title}</h3>
-        <h5>{moment(this.props.startDate).format('MMM Do, YYYY')}</h5>
-        <button onClick={this.props.clickHandler}>
+      <li id={this.props.id} className={listClass + (this.props.doneTs ? ' done' : ' undone')} style={style}>
+        <h5 className=''>{'名稱:'}</h5>
+        <h5 className=''>{this.props.title}</h5>
+        <h5 className=''>{'開始時間: '}</h5>
+        <h5 className=''>{moment(this.props.startDate).format('MMM Do, YYYY')}</h5>
+        <h5 className=''>{'結束時間: '}</h5>
+        <h5 className=''>{moment(this.props.endDate).format('MMM Do, YYYY')}</h5>
+        <h5 className=''>{'簡介: '}</h5>
+        <h5 className=''>{this.props.description}</h5>
+        <div className='check d-flex justify-content-end align-items-center'>
+            <div className='done-ts'>{
+                !!this.props.doneTs &&
+                <span>{moment(this.props.doneTs * 1000).calendar()}</span>
+            }</div>
+        </div>
+        <button onClick={this.handleOnClick}>
           <i className="fa fa-close" />
         </button>
       </li>
@@ -31,6 +56,7 @@ class Shuffle extends React.Component {
   static propTypes = {
       events: PropTypes.array,
       removedEvents: PropTypes.array,
+      user: PropTypes.object,
       dispatch: PropTypes.func
   };
 
@@ -64,10 +90,10 @@ class Shuffle extends React.Component {
       enterLeaveAnimation: 'accordianHorizontal'
     });
   }
-
+  // moment(a.startDate,'YYYY-MM-DD').unix()
   toggleSort() {
-    const sortAsc = (a, b) => a.startDate - b.startDate;
-    const sortDesc = (a, b) => b.startDate - a.startDate;
+    const sortAsc = (a, b) => moment(a.startDate,'YYYY-MM-DD').unix() - moment(b.startDate,'YYYY-MM-DD').unix();
+    const sortDesc = (a, b) => moment(b.startDate,'YYYY-MM-DD').unix()- moment(a.startDate,'YYYY-MM-DD').unix();
     this.setState({
       order: (this.state.order === 'asc' ? 'desc' : 'asc'),
       sortingMethod: 'chronological'
@@ -75,7 +101,9 @@ class Shuffle extends React.Component {
       //   this.state.order === 'asc' ? sortDesc : sortAsc
       // )
     });
+    console.log('In toggleSort: sort function', this.state.order === 'asc' ? sortDesc : sortAsc);
     let destEvent = this.props.events.sort(this.state.order === 'asc' ? sortDesc : sortAsc);
+    console.log('In toggleSort: destEvent', destEvent);
     this.props.dispatch(refreshEvents(destEvent));
   }
 
@@ -133,7 +161,10 @@ class Shuffle extends React.Component {
           key={events.id}
           view={this.state.view}
           index={i}
-          clickHandler={throttle(() => this.moveArticle('events', 'removedEvents', events.id), 800)}
+          dispatch={this.props.dispatch}
+          clickHandler={
+              throttle(()=>this.moveArticle('events', 'removedEvents', events.id), 800)
+          }
           {...events}
         />
       );
@@ -156,6 +187,7 @@ class Shuffle extends React.Component {
               active={this.state.view === 'grid'}
             />
           </div>
+          {'     '}
           <div className="abs-right">
             <Toggle
               clickHandler={this.toggleSort}
@@ -163,7 +195,7 @@ class Shuffle extends React.Component {
               icon={this.state.order === 'asc' ? 'angle-up' : 'angle-down'}
               active={this.state.sortingMethod === 'chronological'}
             />
-            <Toggle
+            {/* <Toggle
               clickHandler={this.sortShuffle}
               text="Shuffle" icon="random"
               active={this.state.sortingMethod === 'shuffle'}
@@ -172,7 +204,7 @@ class Shuffle extends React.Component {
               clickHandler={this.sortRotate}
               text="Rotate" icon="refresh"
               active={this.state.sortingMethod === 'rotate'}
-            />
+            /> */}
           </div>
         </header>
         <div>
@@ -185,7 +217,7 @@ class Shuffle extends React.Component {
           >
             { this.renderArticles() }
             <footer key="foot">
-              <div className="abs-right">
+              <div className="">
                 <Toggle
                   clickHandler={() => (
                     this.moveArticle('removedEvents', 'events')
@@ -213,4 +245,5 @@ class Shuffle extends React.Component {
 
 export default connect(state => ({
     ...state.events,
+    ...state.user
 }))(Shuffle);
