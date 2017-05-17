@@ -14,10 +14,12 @@ function listEvents(searchText = '', unaccomplishedOnly = false, days = 0,accoun
                 reject(err);
             }
             let events = data ? JSON.parse(data) : [];
-            events = events.filter((e) => {
-                if (e.accountName === accountName) return true;
-                else return false;
-            })
+            if(accountName){
+                events = events.filter((e) => {
+                    if (e.accountName === accountName) return true;
+                    else return false;
+                })
+            }
             if (unaccomplishedOnly) {
                 events = events.filter(e => {
                     return !e.doneTs;
@@ -59,7 +61,7 @@ function createEvent(title, startDate, endDate, description,accountName) {
             accountName: accountName
         };
         console.log('events :',newEvent);
-        listEvents('',false,0,accountName).then(events => {
+        listEvents('',false,0,'').then(events => {
             console.log('in listEvents().then');
             events = [
                 ...events,
@@ -81,7 +83,7 @@ function createEvent(title, startDate, endDate, description,accountName) {
 function accomplishEvent(id) {
     return new Promise((resolve, reject) => {
         // let accomplishTodoPost=null;
-        listEvents().then(events => {
+        listEvents('', false, 0, '').then(events => {
             events.map(p => {
                 console.log(`P.ID : ${p.id}`);
                 if (p.id === id) {
@@ -90,7 +92,7 @@ function accomplishEvent(id) {
                 }
                 return p;
             })
-
+            console.log('In accomplishEvent model: events = ', events);
             fs.writeFile('data-events.json', JSON.stringify(events), err => {
                 if (err)
                     reject(err);
