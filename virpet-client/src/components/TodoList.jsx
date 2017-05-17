@@ -11,6 +11,7 @@ import './TodoList.css';
 
 class TodoList extends React.Component {
     static propTypes = {
+        user: PropTypes.object,
         events: PropTypes.array
     };
 
@@ -26,12 +27,19 @@ class TodoList extends React.Component {
                 <div className='empty-text'>所有事情都完成了OuO<br />好好享受睡覺的時光!!</div>
             </ListGroupItem>
         );
-        if (events.length) {
+        if (events.length && this.props.user.status!=='') {
             children = events.map(t => (
                 <ListGroupItem key={t.id} action={!t.doneTs}>
                     <TodoItem {...t} />
                 </ListGroupItem>
             ));
+        }
+        if(this.props.user.status ===''){
+             children = (
+               <ListGroupItem className='empty d-flex justify-content-center align-items-center'>
+                 <div className='empty-text'>請先點上方的登入喔</div>
+              </ListGroupItem>
+            );
         }
 
         return (
@@ -42,4 +50,6 @@ class TodoList extends React.Component {
     }
 }
 
-export default connect()(TodoList);
+export default connect(state => ({
+    ...state.user
+}))(TodoList);
