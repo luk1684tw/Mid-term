@@ -69,3 +69,11 @@
 .hide {
     visibility: hidden;
 }
+
+.corgishow{
+    visibility: visible;
+}
+
+.corgihide{
+    visibility: hidden;
+}

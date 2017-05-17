@@ -1,7 +1,8 @@
 import moment from 'moment';
 const initMainState = {
     navbarToggle: false,
-    pictureNum: 0
+    pictureNum: 0,
+    corgiOff:false
 };
 export function main(state = initMainState, action) {
     switch (action.type) {
@@ -10,8 +11,19 @@ export function main(state = initMainState, action) {
                 navbarToggle: !state.navbarToggle
             };
        case '@MAIN/Animated':
+            if (state.corgiOff){
+                return {
+                    pictureNum: 0
+                };
+            }else {
+                return {
+                    pictureNum: (state.pictureNum<75) ?　state.pictureNum+1 : 0
+                };
+            }
+      case '@MAIN/Show':
             return {
-                pictureNum: (state.pictureNum<75) ?　state.pictureNum+1 : 0
+                corgiOff: !state.corgiOff,
+                pictureNum: 0
             };
         default:
             return state;
