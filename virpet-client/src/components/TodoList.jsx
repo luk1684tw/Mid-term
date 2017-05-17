@@ -27,14 +27,14 @@ class TodoList extends React.Component {
                 <div className='empty-text'>所有事情都完成了OuO<br />好好享受睡覺的時光!!</div>
             </ListGroupItem>
         );
-        if (events.length && this.props.user.status!=='') {
+        if (events.length && this.props.user.account!=='') {
             children = events.map(t => (
                 <ListGroupItem key={t.id} action={!t.doneTs}>
                     <TodoItem {...t} />
                 </ListGroupItem>
             ));
         }
-        if(this.props.user.status ===''){
+        if(this.props.user.account ===''){
              children = (
                <ListGroupItem className='empty d-flex justify-content-center align-items-center'>
                  <div className='empty-text'>請先點上方的登入喔</div>
