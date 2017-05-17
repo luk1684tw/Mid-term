@@ -185,6 +185,7 @@ export function createUser(account, password) {
         return createUserFromApi(account, password).then(user => {
             dispatch(endGetUser(user));
             dispatch(endUserLoading());
+            dispatch(listEvents('', false, 7));
         }).catch(err => {
             console.error('Error creating post', err);
             dispatch(endUserLoading());

@@ -19,7 +19,7 @@ import {createUser, changeLoginModal, account, password, loginDanger, listEvents
 import moment from 'moment';
 class Login extends React.Component{
     static propTypes = {
-      user: PropTypes.string,
+      user: PropTypes.object,
       loginModal: PropTypes.bool,
       password: PropTypes.string,
       loginDanger: PropTypes.bool,
@@ -72,9 +72,9 @@ class Login extends React.Component{
         }
         this.props.dispatch(changeLoginModal());
         this.props.dispatch(createUser(this.props.account, this.props.password));
+        console.log('In Login Action : User = ', this.props.user);
         this.props.dispatch(account(''));
         this.props.dispatch(password(''));
-        this.props.dispatch(listEvents('', false, 7));
     }
     handleAccountChange(e) {
         const text = e.target.value;
