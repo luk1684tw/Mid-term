@@ -43,11 +43,10 @@ class Forecast extends React.Component {
 
     constructor(props) {
         super(props);
-        this.toggleUnaccomplishedOnly = this.toggleUnaccomplishedOnly.bind(this);
     }
 
     componentDidMount() {
-        console.log(this.props.account);
+
         this.props.dispatch(listEvents(this.props.searchText, false, this.props.showDays));
     }
 
@@ -74,10 +73,8 @@ class Forecast extends React.Component {
             <div className='forecast'>
                 <div className='todos'>
                     <div className='label d-flex justify-content-between align-items-end'>
-                        <h4>
-                            <i className='fa fa-tags' aria-hidden="true"></i>&nbsp;&nbsp;記事本</h4>
-                        <div><Input type="checkbox" checked={!this.props.unaccomplishedOnly} onClick={this.toggleUnaccomplishedOnly}/>&nbsp;<Label className='accomplished-only' onClick={this.toggleUnaccomplishedOnly}>顯示完成事項</Label>
-                        </div>
+                        <h4 className = 'te'>
+                            <i className='fa fa-calendar-o' aria-hidden="true"></i>&nbsp;&nbsp;記事本</h4>
                     </div>
                     <TodoForm/>
                     {this.props.user.account!==''? <Shuffle/>: <div className='todo-list'><ListGroup><ListGroupItem className='empty d-flex justify-content-center align-items-center'>
@@ -91,9 +88,6 @@ class Forecast extends React.Component {
         );
     }
 
-    toggleUnaccomplishedOnly() {
-        this.props.dispatch(toggleAndList());
-    }
 }
 
 export default connect(state => ({

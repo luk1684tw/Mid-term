@@ -113,6 +113,7 @@ export function eventsForm(state = initEventsFormState, action) {
         case '@EVENTSFORM/SELECT_SHOW_DAYS':
             return {
                 ...state,
+                formToggle: !state.formToggle,
                 showDays: action.showDays
             };
         default:

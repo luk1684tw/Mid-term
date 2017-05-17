@@ -20,7 +20,7 @@ import {connect} from 'react-redux';
 import SingleEvent from 'components/SingleEvent.jsx';
 import Forecast from 'components/Forecast.jsx';
 import {setSearchText} from 'states/events-actions.js';
-import {toggleNavbar,Animated} from 'states/main-actions.js';
+import {toggleNavbar,Animated,Show} from 'states/main-actions.js';
 import Login from 'components/Login.jsx';
 import Logout from 'components/Logout.jsx';
 import GoogleLogin from 'react-google-login';
@@ -32,13 +32,14 @@ import './main.scss';
 class Main extends React.Component {
     static propTypes = {
         account: PropTypes.string,
-        user: PropTypes.string,
+        user: PropTypes.object,
         events: PropTypes.array,
         searchText: PropTypes.string,
         navbarToggle: PropTypes.bool,
         store: PropTypes.object,
         dispatch: PropTypes.func,
-        pictureNum: PropTypes.number
+        pictureNum: PropTypes.number,
+        corgiOff: PropTypes.bool
     };
 
     constructor(props) {
@@ -50,16 +51,18 @@ class Main extends React.Component {
         this.handleGooglelogin = this.handleGooglelogin.bind(this);
         this.style = 'hide';
         this.handleCorgiClick = this.handleCorgiClick.bind(this);
+        this.eyes = 'corgishow';
+        this.testing = 'true'
+        this.handleCorgiShow = this.handleCorgiShow.bind(this);
     };
 
     render() {
-        console.log('test if is today :');
         let eventTodoFound = false;
         let titletodo = '';
         let alldone = true;
         if (typeof this.props.events !== 'undefined') {
             this.props.events.map((event) => {
-                console.log(moment().unix() - moment(event.startDate,'YYYY-MM-DD').unix());
+
                 if ((moment().unix() - moment(event.startDate,'YYYY-MM-DD').unix() < 86400) &&
                     (moment().unix() - moment(event.startDate,'YYYY-MM-DD').unix() > 0) &&
                     (!event.doneTs)) {
@@ -70,7 +73,7 @@ class Main extends React.Component {
                         alldone = false;
             });
         }
-        console.log('eventfound?',eventTodoFound);
+
         const date = (new Date().getDay())%7;
         const nottoshow = (typeof this.props.events === 'undefined')? true
         : (alldone)? true
@@ -82,20 +85,20 @@ class Main extends React.Component {
          document.querySelector('.weather-bg').style.backgroundImage = `url("images/corgi.jpg")  `;
 
         const e = ((this.props.user.status !== 'login-success!') && (this.props.user.status !== 'Create-Account-succeed'))? '先登入喔<3'
-                : (nottoshow)? '今天沒有預定事項!，好好休息<3' : titletodo;
-        console.log(e);
+                : (nottoshow)? '今天沒有預定事項!，好好休息<3' : '今天你要: ' + titletodo;
         return (
             <Router>
                 <div className='main'>
                     <div className='bg-faded'>
-                        <div className='container'>
-                            <Navbar color='faded' light toggleable>
+                        <div className='container'　>
+                            <Navbar color='faded' light toggleable align-items-flex-start>
+
                                 <NavbarToggler right onClick={this.handleNavbarToggle}/>
                                 <NavbarBrand className='' href="/">Virpet</NavbarBrand>&nbsp;&nbsp;
                                 <Collapse isOpen={this.props.navbarToggle} navbar>
-
-                                    {(this.props.user.account !== '')?<SingleEvent/>:'  '}
                                     {(this.props.user.account !== '')?'Welcome !!':' '}
+                                    {(this.props.user.account !== '')?<SingleEvent/>:'  '}
+
                                     {(this.props.user.account !== '')?this.props.user.account:<Login/>}
                                     {(this.props.user.account !== '')?<Logout/>:' '}
 
@@ -108,6 +111,7 @@ class Main extends React.Component {
                                         <Input className='ml-auto' type='text' placeholder='Search' onKeyPress={this.handleSearchKeyPress} getRef={e => this.searchEl = e}></Input>
                                         {this.props.searchText && <i className='navbar-text fa fa-times' onClick={this.handleClearSearch}></i>}
                                     </div>
+                                    <img src={`images/eyes.png`} onClick={this.handleCorgiShow}/>
                                 </Collapse>
                             </Navbar>
                         </div>
@@ -116,16 +120,18 @@ class Main extends React.Component {
                     <Route exact path="/" render={() => (<Forecast/>)}/>
                     <Route exact path="/forecast" render={() => (<Forecast/>)}/>
 
-                    <div className={this.style}>
-                        <span className="arrow_b_int"></span>
-                        <div>
-                            <span>{weekday}</span><br/>
-                            <span>今天你要 : {e}</span>
+                    <div className = {this.eyes}>
+                        <div className={this.style}>
+                            <span className="arrow_b_int"></span>
+                            <div>
+                                <span>{weekday}</span><br/>
+                                <span>{e}</span>
+                            </div>
+                            <span className="arrow_b_out"></span>
                         </div>
-                        <span className="arrow_b_out"></span>
-                    </div>
 
-                    <img className ='Corgi' src={`images/corgi-${8+this.props.pictureNum}.png`} onClick={this.handleCorgiClick}/>
+                    <img className ='Corgi' aria-hidden={this.testing} src={`images/corgi-${8+this.props.pictureNum}.png`} onClick={this.handleCorgiClick}/>
+                    </div>
 
                     <div className='footer'>
                         NTHU專業工具人開發團隊
@@ -147,7 +153,6 @@ class Main extends React.Component {
     }
 
     handleGooglelogin(response) {
-        console.log('response in handleGooglelogin:' , response.profileObj.email);
         this.props.dispatch(createUser(response.profileObj.email,'googleUser'));
     }
 
@@ -158,17 +163,31 @@ class Main extends React.Component {
 
     handleCorgiClick(){
         clearInterval(this.interval);
-        this.interval = setInterval(()=>{this.props.dispatch(Animated())}, 60);
+        this.interval = setInterval(()=>{this.props.dispatch(Animated(8))}, 60);
+    }
+
+    handleCorgiShow(){
+        this.props.dispatch(Show());
     }
 
     componentWillReceiveProps(){
+
+        if(this.props.corgiOff){
+            this.eyes = 'corgihide';
+        }
+
+        if(!this.props.corgiOff){
+            this.eyes = 'corgishow';
+        }
+
         if (this.props.pictureNum >= 20) {
-            this.style = 'mwt_border';
-        }
+                this.style = 'mwt_border';
+            }
         if(this.props.pictureNum == 75 ){
-            this.style = 'hide';
-            clearInterval(this.interval);
+                this.style = 'hide';
+                clearInterval(this.interval);
         }
+
     }
 
 
