@@ -13,6 +13,6 @@ export function Animated(pictureNum) {
 
 export function Show() {
     return {
-        type: '@MAIN/Show'
+        type: '@MAIN/Show',
     };
 }

@@ -10,9 +10,10 @@ import {
     DropdownItem
 } from 'reactstrap';
 import {connect} from 'react-redux';
-
-import {toggleForm, toggleTemp, listEvents, selectShowDays} from 'states/events-actions.js';
+import {Alert, Label} from 'reactstrap';
+import {toggleForm, toggleTemp, listEvents, selectShowDays ,toggleAndList} from 'states/events-actions.js';
 import './PostForm.css';
+import './Forecast.css';
 
 class TodoForm extends React.Component {
     static propTypes = {
@@ -30,12 +31,13 @@ class TodoForm extends React.Component {
         this.handleTempToggle = this.handleTempToggle.bind(this);
         this.handleDropdownSelect = this.handleDropdownSelect.bind(this);
         this.handleEvents = this.handleEvents.bind(this);
+        this.toggleUnaccomplishedOnly = this.toggleUnaccomplishedOnly.bind(this);
     }
 
     render() {
         const {formToggle, tempToggle, showDays}=this.props;
         return (
-            <div className='post-form'>
+            <div className='label d-flex justify-content-between align-items-flex-start'>
               {formToggle?
                       <ButtonDropdown type='buttom' isOpen={tempToggle} toggle={this.handleTempToggle}>
                           <DropdownToggle className='mood-toggle' type='button' caret color="secondary">
@@ -55,10 +57,17 @@ class TodoForm extends React.Component {
                           </DropdownMenu>
                       </ButtonDropdown>
               :
-              <Button className='btn-form' outline color="secondary" onClick={this.handleFormToggle}><i className='fa fa-map-marker' aria-hidden="true"></i>&nbsp;&nbsp;選取範圍</Button>
+              <Button className='btn-form' outline color="warning" onClick={this.handleFormToggle}><i className='fa fa-map-marker' aria-hidden="true"></i>&nbsp;&nbsp;選取天數範圍</Button>
             }
+            <div>
+                <Input type="checkbox" checked={this.props.unaccomplishedOnly} onClick={this.toggleUnaccomplishedOnly}/>&nbsp;
+                <Label className='accomplished-only' onClick={this.toggleUnaccomplishedOnly}>僅顯示未完成事項</Label>
+            </div>
             </div>
         );
+    }
+    toggleUnaccomplishedOnly() {
+        this.props.dispatch(toggleAndList());
     }
 
     handleDropdownSelect(showDays) {
@@ -83,5 +92,6 @@ class TodoForm extends React.Component {
 
 export default connect(state => ({
     ...state.eventsForm,
+    ...state.events,
     searchText: state.searchText
 }))(TodoForm);

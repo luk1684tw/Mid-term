@@ -42,11 +42,10 @@ class Forecast extends React.Component {
 
     constructor(props) {
         super(props);
-        this.toggleUnaccomplishedOnly = this.toggleUnaccomplishedOnly.bind(this);
     }
 
     componentDidMount() {
-        console.log(this.props.account);
+
         this.props.dispatch(listEvents(this.props.searchText, false, this.props.showDays));
     }
 
@@ -75,8 +74,7 @@ class Forecast extends React.Component {
                     <div className='label d-flex justify-content-between align-items-end'>
                         <h4 className = 'te'>
                             <i className='fa fa-calendar-o' aria-hidden="true"></i>&nbsp;&nbsp;記事本</h4>
-                        <div><Input type="checkbox" checked={this.props.unaccomplishedOnly} onClick={this.toggleUnaccomplishedOnly}/>&nbsp;<Label className='accomplished-only' onClick={this.toggleUnaccomplishedOnly}>未完成事項</Label>
-                        </div>
+
                     </div>
                     <TodoForm/>
                     <TodoList events={events}/>{startEventLoading && <Alert color='warning' className='loading'>Loading...</Alert>
@@ -86,9 +84,6 @@ class Forecast extends React.Component {
         );
     }
 
-    toggleUnaccomplishedOnly() {
-        this.props.dispatch(toggleAndList());
-    }
 }
 
 export default connect(state => ({

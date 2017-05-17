@@ -37,7 +37,7 @@ class TodoList extends React.Component {
         if(this.props.user.account ===''){
              children = (
                <ListGroupItem className='empty d-flex justify-content-center align-items-center'>
-                 <div className='empty-text'>請先點上方的登入喔</div>
+                 <div className='empty-text'>先登入或創立帳號哦～～</div>
               </ListGroupItem>
             );
         }
