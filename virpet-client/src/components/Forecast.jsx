@@ -17,17 +17,18 @@ import {
     Container,
     Row,
     Col,
-    Jumbotron
+    Jumbotron,
+    ListGroup,
+    ListGroupItem
 } from 'reactstrap';
-
-import WeatherDisplay from 'components/WeatherDisplay.jsx';
-import WeatherTable from 'components/WeatherTable.jsx';
-import WeatherForm from 'components/WeatherForm.jsx';
 import TodoForm from 'components/TodoForm.jsx';
 import TodoList from 'components/TodoList.jsx';
+import Shuffle from 'components/Shuffle.jsx';
 import {listEvents, toggleAndList} from 'states/events-actions.js';
 import Days from 'components/Days.jsx'
 import './Forecast.css';
+import './TodoList.css';
+import './shuffle.scss';
 
 class Forecast extends React.Component {
     static propTypes = {
@@ -74,10 +75,13 @@ class Forecast extends React.Component {
                     <div className='label d-flex justify-content-between align-items-end'>
                         <h4 className = 'te'>
                             <i className='fa fa-calendar-o' aria-hidden="true"></i>&nbsp;&nbsp;記事本</h4>
-
                     </div>
                     <TodoForm/>
-                    <TodoList events={events}/>{startEventLoading && <Alert color='warning' className='loading'>Loading...</Alert>
+                    {this.props.user.account!==''? <Shuffle/>: <div className='todo-list'><ListGroup><ListGroupItem className='empty d-flex justify-content-center align-items-center'>
+                      <div className='empty-text'>請先點上方的登入喔</div>
+                   </ListGroupItem></ListGroup></div>}
+                    {/* <TodoList events={events}/> */}
+                    {startEventLoading && <Alert color='warning' className='loading'>載入中 請稍後...</Alert>
 }
                 </div>
             </div>

@@ -2,7 +2,7 @@
     width: 100%;
 }
 
-.todo-item .todo {
+.todo-item h5{
     width: 100%;
 }
 
@@ -34,7 +34,7 @@
     width: 3rem;
 }
 
-.todo-item .done-ts {
+.done-ts {
     color: #bcbcbc;
     font-size: 0.875rem;
 }
@@ -49,6 +49,6 @@
     cursor: pointer;
 }
 
-.todo-item.done .text {
+.done h5{
     text-decoration: line-through;
 }

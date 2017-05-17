@@ -26,8 +26,8 @@ import Logout from 'components/Logout.jsx';
 import GoogleLogin from 'react-google-login';
 import {createUser, changeLoginModal, account, password, loginDanger} from 'states/events-actions.js';
 import moment from 'moment';
-import './Main.css';
-
+//import './Main.css';
+import './main.scss';
 
 class Main extends React.Component {
     static propTypes = {
@@ -82,7 +82,7 @@ class Main extends React.Component {
                         : (date === 2) ? '今天是星期二!' : (date === 3) ? '今天是星期三!'
                         : (date === 4) ? '今天是星期四!' : (date === 5) ? '今天是星期五!'
                         : '今天是星期六!';
-         document.querySelector('.weather-bg').style.backgroundImage = `url("images/corgi.jpg")  `;
+         document.querySelector('.weather-bg').style.backgroundImage = `url("images/bg-1.jpg")  `;
 
         const e = ((this.props.user.status !== 'login-success!') && (this.props.user.status !== 'Create-Account-succeed'))? '先登入喔<3'
                 : (nottoshow)? '今天沒有預定事項!，好好休息<3' : '今天你要: ' + titletodo;

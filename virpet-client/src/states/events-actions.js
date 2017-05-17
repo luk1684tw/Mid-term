@@ -117,6 +117,18 @@ export function toggleAndList() {
         return dispatch(listEvents(getState().searchText, true, getState().eventsForm.showDays));
     }
 }
+export function refreshEvents(events){
+    return{
+          type: '@EVENTS/REFRESH_EVENTS',
+          events
+    };
+}
+export function refreshRemovedEvents(removedEvents){
+     return{
+           type: '@EVENTS/REFRESH_REMOVED_EVENTS',
+           removedEvents
+     }
+}
 //------------------------
 //------------------------
 export function toggleForm() {
@@ -210,3 +222,4 @@ export function changeLogoutModal(){
         type: '@LOGOUT/CHANGE_LOGOUT_MODAL'
     };
 };
+//---------------------------
