@@ -50,7 +50,7 @@ class Forecast extends React.Component {
 
 
     componentWillReceiveProps(nextProps) {
-        console.log('nextProps.searchText = ',nextProps.searchText, ' this.props.searchText = ', this.props.searchText);
+        // console.log('nextProps.searchText = ',nextProps.searchText, ' this.props.searchText = ', this.props.searchText);
         if (nextProps.searchText !== this.props.searchText) {
             this.props.dispatch(listEvents(nextProps.searchText, false, this.props.showDays));
         }
@@ -60,10 +60,10 @@ class Forecast extends React.Component {
         const {
             startEventLoading,
             events,
-			      unaccomplishedOnly,
+			unaccomplishedOnly,
             searchText
         } = this.props;
-        console.log('In Render: searchText= ',searchText);
+        // console.log('In Render: searchText= ',searchText);
         document.body.className = `weather-bg`;
         document.querySelector('.weather-bg').style.backgroundImage = `url("images/corgi.jpg")  `;
 				console.log('EVENTS in forecast',events);

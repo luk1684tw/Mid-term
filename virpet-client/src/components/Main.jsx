@@ -25,13 +25,15 @@ import Login from 'components/Login.jsx';
 import Logout from 'components/Logout.jsx';
 import GoogleLogin from 'react-google-login';
 import {createUser, changeLoginModal, account, password, loginDanger} from 'states/events-actions.js';
+import moment from 'moment';
 import './Main.css';
 
 
 class Main extends React.Component {
     static propTypes = {
         account: PropTypes.string,
-        user: PropTypes.object,
+        user: PropTypes.string,
+        events: PropTypes.array,
         searchText: PropTypes.string,
         navbarToggle: PropTypes.bool,
         store: PropTypes.object,
@@ -51,12 +53,37 @@ class Main extends React.Component {
     };
 
     render() {
+        console.log('test if is today :');
+        let eventTodoFound = false;
+        let titletodo = '';
+        let alldone = true;
+        if (typeof this.props.events !== 'undefined') {
+            this.props.events.map((event) => {
+                console.log(moment().unix() - moment(event.startDate,'YYYY-MM-DD').unix());
+                if ((moment().unix() - moment(event.startDate,'YYYY-MM-DD').unix() < 86400) &&
+                    (moment().unix() - moment(event.startDate,'YYYY-MM-DD').unix() > 0) &&
+                    (!event.doneTs)) {
+                        eventTodoFound = true;
+                        titletodo = event.title;
+                }
+                if (!event.doneTs)
+                        alldone = false;
+            });
+        }
+        console.log('eventfound?',eventTodoFound);
         const date = (new Date().getDay())%7;
-        const weekday = (date === 0)? 'Sun' : (date === 1) ? 'Mon' : (date === 2) ? 'Tue'
-        : (date === 3) ? 'Wen' : (date === 4) ? 'Thu' : (date === 5) ? 'Fri' : 'Sat';
-        // document.querySelector('.weather-bg').style.backgroundImage = `url("images/corgi.jpg")  `;
-        console.log('In Main: searchText = ', this.props.searchText);
+        const nottoshow = (typeof this.props.events === 'undefined')? true
+        : (alldone)? true
+        : (!eventTodoFound)? true : false;
+        const weekday = (date === 0)? '今天是星期天!' : (date === 1) ? '今天是星期一!'
+                        : (date === 2) ? '今天是星期二!' : (date === 3) ? '今天是星期三!'
+                        : (date === 4) ? '今天是星期四!' : (date === 5) ? '今天是星期五!'
+                        : '今天是星期六!';
+         document.querySelector('.weather-bg').style.backgroundImage = `url("images/corgi.jpg")  `;
 
+        const e = ((this.props.user.status !== 'login-success!') && (this.props.user.status !== 'Create-Account-succeed'))? '先登入喔<3'
+                : (nottoshow)? '今天沒有預定事項!，好好休息<3' : titletodo;
+        console.log(e);
         return (
             <Router>
                 <div className='main'>
@@ -66,10 +93,12 @@ class Main extends React.Component {
                                 <NavbarToggler right onClick={this.handleNavbarToggle}/>
                                 <NavbarBrand className='' href="/">Virpet</NavbarBrand>&nbsp;&nbsp;
                                 <Collapse isOpen={this.props.navbarToggle} navbar>
+
                                     {(this.props.user.account !== '')?<SingleEvent/>:'  '}
                                     {(this.props.user.account !== '')?'Welcome !!':' '}
                                     {(this.props.user.account !== '')?this.props.user.account:<Login/>}
                                     {(this.props.user.account !== '')?<Logout/>:' '}
+
                                     &nbsp;&nbsp;
                                     {(this.props.user.account !== '')?'':
                                       <GoogleLogin clientId="658977310896-knrl3gka66fldh83dao2rhgbblmd4un9.apps.googleusercontent.com" buttonText="GoogleLogin" onSuccess={this.handleGooglelogin} onFailure={this.handleGooglelogin} className='btn btn-primary' offline={false}></GoogleLogin>
@@ -89,7 +118,10 @@ class Main extends React.Component {
 
                     <div className={this.style}>
                         <span className="arrow_b_int"></span>
-                        <span>Today is {weekday}</span>
+                        <div>
+                            <span>{weekday}</span><br/>
+                            <span>今天你要 : {e}</span>
+                        </div>
                         <span className="arrow_b_out"></span>
                     </div>
 
@@ -146,6 +178,7 @@ class Main extends React.Component {
 export default connect(state => ({
     ...state.main,
     ...state.user,
+    ...state.events,
     ...state.loginForm,
     searchText: state.searchText
 }))(Main);
