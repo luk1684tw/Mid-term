@@ -19,15 +19,13 @@ import {
     Col,
     Jumbotron
 } from 'reactstrap';
-
-import WeatherDisplay from 'components/WeatherDisplay.jsx';
-import WeatherTable from 'components/WeatherTable.jsx';
-import WeatherForm from 'components/WeatherForm.jsx';
 import TodoForm from 'components/TodoForm.jsx';
 import TodoList from 'components/TodoList.jsx';
+import Shuffle from 'components/Shuffle.jsx';
 import {listEvents, toggleAndList} from 'states/events-actions.js';
 import Days from 'components/Days.jsx'
 import './Forecast.css';
+import './shuffle.css';
 
 class Forecast extends React.Component {
     static propTypes = {
@@ -79,6 +77,7 @@ class Forecast extends React.Component {
                         </div>
                     </div>
                     <TodoForm/>
+                    <Shuffle/>
                     <TodoList events={events}/>{startEventLoading && <Alert color='warning' className='loading'>Loading...</Alert>
 }
                 </div>

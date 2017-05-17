@@ -31,7 +31,7 @@ import './Main.css';
 class Main extends React.Component {
     static propTypes = {
         account: PropTypes.string,
-        user: PropTypes.string,
+        user: PropTypes.object,
         searchText: PropTypes.string,
         navbarToggle: PropTypes.bool,
         store: PropTypes.object,

@@ -9,7 +9,8 @@ export function searchText(state = '', action) {
 const initEventState = {
   startEventLoading: false,
   events: [],
-  unaccomplishedOnly: false
+  unaccomplishedOnly: false,
+  removedEvents: []
 }
 export function events(state = initEventState, action) {
     switch(action.type) {
@@ -32,6 +33,16 @@ export function events(state = initEventState, action) {
             return {
                 ...state,
                 unaccomplishedOnly: !state.unaccomplishedOnly
+            };
+        case '@EVENTS/REFRESH_EVENTS':
+            return{
+                ...state,
+                events: action.events
+            };
+        case '@EVENTS/REFRESH_REMOVED_EVENTS':
+            return{
+                ...state,
+                removedEvents: action.removedEvents
             };
         default:
             return state;
