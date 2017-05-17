@@ -14,12 +14,10 @@ function listEvents(searchText = '', unaccomplishedOnly = false, days = 0,accoun
                 reject(err);
             }
             let events = data ? JSON.parse(data) : [];
-
             events = events.filter((e) => {
                 if (e.accountName === accountName) return true;
                 else return false;
             })
-
             if (unaccomplishedOnly) {
                 events = events.filter(e => {
                     return !e.doneTs;

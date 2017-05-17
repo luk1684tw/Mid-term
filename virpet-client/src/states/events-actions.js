@@ -72,7 +72,7 @@ export function listEvents(searchText, loading = false, showDays) {
         return listEventsFromApi(getState().events.unaccomplishedOnly, searchText, showDays, getState().user.user.account).then(events => {
             dispatch(endListEvents(events));
             dispatch(endEventLoading());
-            console.log('Events in actions.listEvents', events);
+            console.log('Events in actions', events);
         }).catch(err => {
             console.error('Error listing posts', err);
             dispatch(endEventLoading());

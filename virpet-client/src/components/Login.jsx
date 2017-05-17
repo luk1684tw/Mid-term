@@ -15,7 +15,7 @@ import {
     InputGroupAddon
 } from 'reactstrap';
 import {connect} from 'react-redux';
-import {createUser, changeLoginModal, account, password, loginDanger} from 'states/events-actions.js';
+import {createUser, changeLoginModal, account, password, loginDanger, listEvents} from 'states/events-actions.js';
 import moment from 'moment';
 class Login extends React.Component{
     static propTypes = {
@@ -74,6 +74,7 @@ class Login extends React.Component{
         this.props.dispatch(createUser(this.props.account, this.props.password));
         this.props.dispatch(account(''));
         this.props.dispatch(password(''));
+        this.props.dispatch(listEvents('', false, 7));
     }
     handleAccountChange(e) {
         const text = e.target.value;
@@ -95,6 +96,7 @@ class Login extends React.Component{
 export default connect(state => ({
     ...state.loginForm,
     ...state.user,
+    ...state.events,
     ...state.eventsForm,
     searchText: state.searchText
 }))(Login);
