@@ -179,6 +179,11 @@ function endGetUser(user){
         user
     };
 };
+function clearUser(){
+    return{
+       type: '@LOGIN/CLEAR_USER'
+    };
+}
 export function createUser(account, password) {
     return (dispatch, getState) => {
         dispatch(startUserLoading());
@@ -192,10 +197,11 @@ export function createUser(account, password) {
         });
     };
 };
-export function clearUser(){
-    return{
-       type: '@LOGIN/CLEAR_USER'
-    };
+export function cleanUser(){
+  return (dispatch, getState) => {
+          dispatch(clearUser());
+          dispatch(listEvents('', false, 0));
+  };
 }
 //--------------------------
 //--------------------------

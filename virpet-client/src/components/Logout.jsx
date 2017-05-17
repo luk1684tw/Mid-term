@@ -15,7 +15,7 @@ import {
     InputGroupAddon
 } from 'reactstrap';
 import {connect} from 'react-redux';
-import {clearUser, changeLogoutModal, listEvents} from 'states/events-actions.js';
+import {cleanUser, changeLogoutModal, listEvents} from 'states/events-actions.js';
 import moment from 'moment';
 class Logout extends React.Component{
     static propTypes = {
@@ -46,8 +46,8 @@ class Logout extends React.Component{
     }
     handleLogout(){
         this.props.dispatch(changeLogoutModal());
-        this.props.dispatch(clearUser());
-        this.props.dispatch(listEvents('', false, 0));
+        this.props.dispatch(cleanUser());
+        //this.props.dispatch(listEvents('', false, 0));
     }
 }
 export default connect(state => ({
