@@ -2,7 +2,7 @@ import moment from 'moment';
 const initMainState = {
     navbarToggle: false,
     pictureNum: 0,
-    corgiOff:false
+    corgiOff:true
 };
 export function main(state = initMainState, action) {
     switch (action.type) {

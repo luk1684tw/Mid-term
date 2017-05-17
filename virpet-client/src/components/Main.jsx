@@ -32,7 +32,7 @@ import './Main.css';
 class Main extends React.Component {
     static propTypes = {
         account: PropTypes.string,
-        user: PropTypes.string,
+        user: PropTypes.object,
         events: PropTypes.array,
         searchText: PropTypes.string,
         navbarToggle: PropTypes.bool,
@@ -52,6 +52,7 @@ class Main extends React.Component {
         this.style = 'hide';
         this.handleCorgiClick = this.handleCorgiClick.bind(this);
         this.eyes = 'corgishow';
+        this.testing = 'true'
         this.handleCorgiShow = this.handleCorgiShow.bind(this);
     };
 
@@ -84,7 +85,7 @@ class Main extends React.Component {
          document.querySelector('.weather-bg').style.backgroundImage = `url("images/corgi.jpg")  `;
 
         const e = ((this.props.user.status !== 'login-success!') && (this.props.user.status !== 'Create-Account-succeed'))? '先登入喔<3'
-                : (nottoshow)? '今天沒有預定事項!，好好休息<3' : titletodo;
+                : (nottoshow)? '今天沒有預定事項!，好好休息<3' : '今天你要: ' + titletodo;
         return (
             <Router>
                 <div className='main'>
@@ -123,12 +124,12 @@ class Main extends React.Component {
                             <span className="arrow_b_int"></span>
                             <div>
                                 <span>{weekday}</span><br/>
-                                <span>今天你要 : {e}</span>
+                                <span>{e}</span>
                             </div>
                             <span className="arrow_b_out"></span>
                         </div>
 
-                    <img className ='Corgi' src={`images/corgi-${8+this.props.pictureNum}.png`} onClick={this.handleCorgiClick}/>
+                    <img className ='Corgi' aria-hidden={this.testing} src={`images/corgi-${8+this.props.pictureNum}.png`} onClick={this.handleCorgiClick}/>
                     </div>
 
                     <div className='footer'>
