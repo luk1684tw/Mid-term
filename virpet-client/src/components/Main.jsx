@@ -82,7 +82,6 @@ class Main extends React.Component {
 
         const e = ((this.props.user.status !== 'login-success!') && (this.props.user.status !== 'Create-Account-succeed'))? '先登入喔<3'
                 : (nottoshow)? '今天沒有預定事項!，好好休息<3' : titletodo;
-
         return (
             <Router>
                 <div className='main'>
@@ -100,7 +99,7 @@ class Main extends React.Component {
 
                                     &nbsp;&nbsp;
                                     {(this.props.user.account !== '')?'':
-                                      <GoogleLogin clientId="969265145838-c9ri384clrh01h71dvb24tfoknbjpufp.apps.googleusercontent.com" buttonText="GoogleLogin" onSuccess={this.handleGooglelogin} onFailure={this.handleGooglelogin} className='btn btn-primary' offline={false}></GoogleLogin>
+                                      <GoogleLogin clientId="658977310896-knrl3gka66fldh83dao2rhgbblmd4un9.apps.googleusercontent.com" buttonText="GoogleLogin" onSuccess={this.handleGooglelogin} onFailure={this.handleGooglelogin} className='btn btn-primary' offline={false}></GoogleLogin>
 
                                     }
                                     <div className='search ml-auto'>
