@@ -53,13 +53,12 @@ class Main extends React.Component {
     };
 
     render() {
-        console.log('test if is today :');
         let eventTodoFound = false;
         let titletodo = '';
         let alldone = true;
         if (typeof this.props.events !== 'undefined') {
             this.props.events.map((event) => {
-                console.log(moment().unix() - moment(event.startDate,'YYYY-MM-DD').unix());
+
                 if ((moment().unix() - moment(event.startDate,'YYYY-MM-DD').unix() < 86400) &&
                     (moment().unix() - moment(event.startDate,'YYYY-MM-DD').unix() > 0) &&
                     (!event.doneTs)) {
@@ -70,7 +69,7 @@ class Main extends React.Component {
                         alldone = false;
             });
         }
-        console.log('eventfound?',eventTodoFound);
+
         const date = (new Date().getDay())%7;
         const nottoshow = (typeof this.props.events === 'undefined')? true
         : (alldone)? true
@@ -83,7 +82,7 @@ class Main extends React.Component {
 
         const e = ((this.props.user.status !== 'login-success!') && (this.props.user.status !== 'Create-Account-succeed'))? '先登入喔<3'
                 : (nottoshow)? '今天沒有預定事項!，好好休息<3' : titletodo;
-        console.log(e);
+
         return (
             <Router>
                 <div className='main'>
@@ -101,7 +100,7 @@ class Main extends React.Component {
 
                                     &nbsp;&nbsp;
                                     {(this.props.user.account !== '')?'':
-                                      <GoogleLogin clientId="658977310896-knrl3gka66fldh83dao2rhgbblmd4un9.apps.googleusercontent.com" buttonText="GoogleLogin" onSuccess={this.handleGooglelogin} onFailure={this.handleGooglelogin} className='btn btn-primary' offline={false}></GoogleLogin>
+                                      <GoogleLogin clientId="969265145838-c9ri384clrh01h71dvb24tfoknbjpufp.apps.googleusercontent.com" buttonText="GoogleLogin" onSuccess={this.handleGooglelogin} onFailure={this.handleGooglelogin} className='btn btn-primary' offline={false}></GoogleLogin>
 
                                     }
                                     <div className='search ml-auto'>
@@ -147,7 +146,6 @@ class Main extends React.Component {
     }
 
     handleGooglelogin(response) {
-        console.log('response in handleGooglelogin:' , response.profileObj.email);
         this.props.dispatch(createUser(response.profileObj.email,'googleUser'));
     }
 
