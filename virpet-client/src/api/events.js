@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // Develop server URL
-const eventBaseUrl = 'http://localhost:8080/api';
+const eventBaseUrl = 'http://nthu-virpet.us-west-2.elasticbeanstalk.com/api';
 
 export function listEvents(unaccomplishedOnly, searchText, showDays, accountName) {
 
