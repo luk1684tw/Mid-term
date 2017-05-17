@@ -31,7 +31,7 @@ import './Forecast.css';
 
 class Forecast extends React.Component {
     static propTypes = {
-        user: PropTypes.string,
+        user: PropTypes.object,
 		    startEventLoading: PropTypes.bool,
         events: PropTypes.array,
         showDays: PropTypes.number,
@@ -71,34 +71,6 @@ class Forecast extends React.Component {
 				console.log('EVENTS in forecast',events);
         return (
             <div className='forecast'>
-                {/*<container className='display-5'>
-                    <div className="cards">
-                        <Row>
-                            <Col>
-                                <Days order={0}/>
-                            </Col>
-                            <Col>
-                                <Days order={1}/>
-                            </Col>
-                            <Col className="responsive">
-                                <Days order={2}/>
-                            </Col>
-                            <Col className="responsive">
-                                <Days order={3}/>
-                            </Col>
-
-                            <Col className="responsive">
-                                <Days order={4}/>
-                            </Col>
-                            <Col className="responsive">
-                                <Days order={5}/>
-                            </Col>
-                            <Col className="responsive">
-                                <Days order={6}/>
-                            </Col>
-                        </Row>
-                    </div>
-                </container>*/}
                 <div className='todos'>
                     <div className='label d-flex justify-content-between align-items-end'>
                         <h4>

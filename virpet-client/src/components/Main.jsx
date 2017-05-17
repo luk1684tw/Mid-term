@@ -66,10 +66,7 @@ class Main extends React.Component {
                                 <NavbarToggler right onClick={this.handleNavbarToggle}/>
                                 <NavbarBrand className='' href="/">Virpet</NavbarBrand>&nbsp;&nbsp;
                                 <Collapse isOpen={this.props.navbarToggle} navbar>
-
-                                    <SingleEvent/>
-                                    &nbsp;&nbsp;
-
+                                    {(this.props.user.status !== '')?<SingleEvent/>:'  '}
                                     {(this.props.user.status !== '')?'Welcome Master!! ':' '}
                                     {(this.props.user.status !== '')?this.props.user.account:<Login/>}
                                     {(this.props.user.status !== '')?<Logout/>:' '}
