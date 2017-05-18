@@ -19,7 +19,8 @@ import {
     Col,
     Jumbotron,
     ListGroup,
-    ListGroupItem
+    ListGroupItem,
+    UncontrolledAlert
 } from 'reactstrap';
 import TodoForm from 'components/TodoForm.jsx';
 import TodoList from 'components/TodoList.jsx';
@@ -67,11 +68,17 @@ class Forecast extends React.Component {
         } = this.props;
         // console.log('In Render: searchText= ',searchText);
         document.body.className = `weather-bg`;
-        document.querySelector('.weather-bg').style.backgroundImage = `url("images/corgi.jpg")  `;
+        document.querySelector('.weather-bg').style.backgroundImage = `url("images/bg-7.jpg")  `;
 				console.log('EVENTS in forecast',events);
         return (
             <div className='forecast'>
                 <div className='todos'>
+                    {this.props.user.account!=''?<UncontrolledAlert color="success">
+                        Welcome!{' '+this.props.user.account}
+                      </UncontrolledAlert>:''}
+                    {this.props.user.status==='Wrong-Key!'?<UncontrolledAlert color="danger">
+                        Your Password is Wrong
+                      </UncontrolledAlert>:''}
                     <div className='label d-flex justify-content-between align-items-end'>
                         <h4 className = 'te'>
                             <i className='fa fa-calendar-o' aria-hidden="true"></i>&nbsp;&nbsp;記事本</h4>

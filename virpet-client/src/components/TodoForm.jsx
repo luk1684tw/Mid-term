@@ -39,7 +39,7 @@ class TodoForm extends React.Component {
         return (
             <div className='label d-flex justify-content-between align-items-flex-start'>
               {formToggle?
-                      <ButtonDropdown type='buttom' isOpen={tempToggle} toggle={this.handleTempToggle}>
+                      <div><ButtonDropdown type='buttom' isOpen={tempToggle} toggle={this.handleTempToggle}>
                           <DropdownToggle className='mood-toggle' type='button' caret color="secondary">
                               {/*<i className={getMoodIcon(mood)}></i>&nbsp;
                                    mood === 'na' ? 'Mood' : mood
@@ -56,13 +56,12 @@ class TodoForm extends React.Component {
                               <DropdownItem type='button' onClick={() => this.handleDropdownSelect(30)}>&nbsp;&nbsp;30 天</DropdownItem>
                           </DropdownMenu>
                       </ButtonDropdown>
+                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      <Input type="checkbox" checked={!this.props.unaccomplishedOnly} onClick={this.toggleUnaccomplishedOnly}/>&nbsp;
+                      <Label className='accomplished-only' onClick={this.toggleUnaccomplishedOnly}>顯示完成事項</Label></div>
               :
               <Button className='btn-form' outline color="warning" onClick={this.handleFormToggle}><i className='fa fa-map-marker' aria-hidden="true"></i>&nbsp;&nbsp;選取天數範圍</Button>
             }
-            <div>
-                <Input type="checkbox" checked={this.props.unaccomplishedOnly} onClick={this.toggleUnaccomplishedOnly}/>&nbsp;
-                <Label className='accomplished-only' onClick={this.toggleUnaccomplishedOnly}>僅顯示未完成事項</Label>
-            </div>
             </div>
         );
     }

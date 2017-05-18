@@ -82,7 +82,7 @@ class Main extends React.Component {
                         : (date === 2) ? '今天是星期二!' : (date === 3) ? '今天是星期三!'
                         : (date === 4) ? '今天是星期四!' : (date === 5) ? '今天是星期五!'
                         : '今天是星期六!';
-         document.querySelector('.weather-bg').style.backgroundImage = `url("images/bg-1.jpg")  `;
+         document.querySelector('.weather-bg').style.backgroundImage = `url("images/bg-7.jpg")  `;
 
         const e = ((this.props.user.status !== 'login-success!') && (this.props.user.status !== 'Create-Account-succeed'))? '先登入喔<3'
                 : (nottoshow)? '今天沒有預定事項!，好好休息<3' : '今天你要: ' + titletodo;
@@ -96,10 +96,9 @@ class Main extends React.Component {
                                 <NavbarToggler right onClick={this.handleNavbarToggle}/>
                                 <NavbarBrand className='' href="/">Virpet</NavbarBrand>&nbsp;&nbsp;
                                 <Collapse isOpen={this.props.navbarToggle} navbar>
-                                    {(this.props.user.account !== '')?'Welcome !!':' '}
                                     {(this.props.user.account !== '')?<SingleEvent/>:'  '}
 
-                                    {(this.props.user.account !== '')?this.props.user.account:<Login/>}
+                                    {(this.props.user.account !== '')?'':<Login/>}
                                     {(this.props.user.account !== '')?<Logout/>:' '}
 
                                     &nbsp;&nbsp;
